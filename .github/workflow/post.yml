@@ -2,11 +2,11 @@ name: Weekly Insta Post
 
 on:
   schedule:
-    - cron: '0 10 * * 1'  # Jeden Montag um 10:00 UTC = 12:00 Uhr Deutschlandzeit
-  workflow_dispatch:      # Manuell auslösbar
+    - cron: '0 10 * * 1'  # Montags 12:00 Uhr (DE)
+  workflow_dispatch:
 
 jobs:
-  insta-post:
+  post:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,13 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Post auf Instagram machen
+      - name: Inhalt generieren (Zitat + Bild mit Text)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python generate_content.py
+
+      - name: Bild posten
         env:
           IG_USERNAME: ${{ secrets.IG_USERNAME }}
           IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
