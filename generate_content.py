@@ -17,21 +17,28 @@ def generate_prompt(text, mood):
 
 def generate_image_with_openai(prompt):
     openai.api_key = os.getenv("OPENAI_API_KEY")
-    response = openai.Image.create(
+    
+    # Neue API-Aufrufmethode verwenden
+    response = openai.images.create(
         prompt=prompt,
-        model="dall-e-3",
         n=1,
         size="1024x1024"
     )
+    
+    # URL des generierten Bildes
     image_url = response['data'][0]['url']
+    
+    # Bild herunterladen und speichern
     img_data = requests.get(image_url).content
     with open("bild.jpg", "wb") as f:
         f.write(img_data)
 
 def main():
-    quote, mood = random.choice(quotes)
-    prompt = generate_prompt(quote, mood)
-    generate_image_with_openai(prompt)
+    quote, mood = random.choice(quotes)  # Zufälliges Zitat und Stimmung auswählen
+    prompt = generate_prompt(quote, mood)  # Prompt generieren
+    generate_image_with_openai(prompt)  # Bild mit OpenAI generieren
+    
+    # Zitat in einer Textdatei speichern
     with open("caption.txt", "w", encoding="utf-8") as f:
         f.write(quote)
 
