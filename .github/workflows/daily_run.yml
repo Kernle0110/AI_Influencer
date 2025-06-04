@@ -5,6 +5,10 @@ on:
     - cron: '0 13 * * *'  # Every day at 13:00 UTC
   workflow_dispatch:  # Optional: manual trigger
 
+permissions:
+  contents: write
+
+
 jobs:
   daily-run:
     runs-on: ubuntu-latest
@@ -32,3 +36,10 @@ jobs:
           IG_USERNAME: ${{ secrets.IG_USERNAME }}
           IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
         run: python daily_run.py
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Auto-post: Moved posted image to archive [skip ci]" || echo "Nothing to commit"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+
