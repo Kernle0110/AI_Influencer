@@ -1,4 +1,7 @@
+import csv
 import os
+import shutil
+
 from instagrapi import Client
 from PIL import Image, ImageDraw, ImageFont
 
@@ -11,20 +14,43 @@ password = "kiinfluencer"
 cl = Client()
 cl.login(username, password)
 
-# === caption.txt einlesen ===
-with open("caption.txt", "r", encoding="utf-8") as f:
-    lines = [line.strip() for line in f.readlines() if line.strip()]
+# === Folders ===
+images_folder = "images_to_post"
+archive_folder = "archive_images"
 
-quote = lines[0]
-keywords = []
-if len(lines) > 1:
-    keywords = [kw.strip() for part in lines[1:] for kw in part.replace("–", ",").replace("—", ",").split(",")]
+# === Find first image in folder ===
+image_files = sorted([f for f in os.listdir(images_folder) if f.lower().endswith(('.jpg', '.png'))])
 
-# === Bild laden ===
-image_path = "bild.jpg"
-if not os.path.exists(image_path):
-    image_path = "bild.png"
+if not image_files:
+    print("❌ No image found in images folder.")
+    exit(1)
 
+image_file = image_files[0]  # Take first image
+image_path = os.path.join(images_folder, image_file)
+
+# === Extract number from filename (without .jpg/.png)
+post_number = os.path.splitext(image_file)[0]
+
+# === Load quote and keywords from zitate.csv ===
+quote_text = ""
+keywords_text = ""
+
+with open("zitate.csv", "r", encoding="utf-8") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        if row["nr"] == post_number:
+            quote_text = row["zitat"].strip()
+            keywords_text = row["schlagworte"].strip()
+            break
+
+if not quote_text:
+    print(f"❌ No quote found for number {post_number}")
+    exit(1)
+
+quote = quote_text
+keywords = [kw.strip() for kw in keywords_text.split(",") if kw.strip()]
+
+# === Print quote into picture ===
 image = Image.open(image_path).convert("RGBA")
 width, height = image.size
 
@@ -109,3 +135,12 @@ caption_text = f"{quote}\n\n{hashtags}"
 # === Hochladen ===
 cl.photo_upload("bild_caption.jpg", caption_text)
 print("✅ Bild mit transparentem Text-Hintergrund gepostet.")
+
+# === Move image to archive folder ===
+if not os.path.exists(archive_folder):
+    os.makedirs(archive_folder)
+
+target_path = os.path.join(archive_folder, image_file)
+shutil.move(image_path, target_path)
+print(f"📂 Moved image {image_file} to {archive_folder}.")
+

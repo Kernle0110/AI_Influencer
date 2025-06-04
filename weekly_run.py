@@ -30,13 +30,6 @@ try:
         result = subprocess.run(['python', 'generate_content.py'], check=True)
     print("✅ Zitat erfolgreich generiert.")
 
-    # === 4. Poste Bild ===
-    print("📤 Führe auto_post.py aus...")
-    #result = subprocess.run(['python', 'auto_post.py'], check=True)
-    print("✅ Bild erfolgreich gepostet.")
-
-    print("🏁 Workflow abgeschlossen.")
-
 except subprocess.CalledProcessError as e:
     print(f"❌ Fehler bei Ausführung eines Skripts: {e}")
     sys.exit(1)
