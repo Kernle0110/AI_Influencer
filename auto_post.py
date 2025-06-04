@@ -5,11 +5,24 @@ import shutil
 from instagrapi import Client
 from PIL import Image, ImageDraw, ImageFont
 
-# === Login ===
-username = os.getenv("IG_USERNAME")
-password = os.getenv("IG_PASSWORD")
 
 cl = Client()
+
+# === Check if session.json exists
+if os.path.exists("session.json"):
+    cl.load_settings("session.json")
+    username = os.getenv("IG_USERNAME")
+    password = os.getenv("IG_PASSWORD")
+    cl.login(username, password)  # Refresh login (safe)
+    print("✅ Session loaded and refreshed.")
+else:
+    # First login → will ask for Challenge if Instagram wants it
+    username = os.getenv("IG_USERNAME")
+    password = os.getenv("IG_PASSWORD")
+    cl.login(username, password)
+    cl.dump_settings("session.json")
+    print("✅ First login successful → session.json saved.")
+
 cl.login(username, password)
 
 # === Folders ===
