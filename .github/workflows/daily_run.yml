@@ -36,10 +36,14 @@ jobs:
           IG_USERNAME: ${{ secrets.IG_USERNAME }}
           IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
         run: python daily_run.py
+      
+      - name: Set git user
+        run: |
+          git config user.email "kernline.mk@gmail.com"
+          git config user.name "Kernle0110"
 
       - name: Commit and push changes
         run: |
           git add .
           git commit -m "Auto-post: Moved posted image to archive [skip ci]" || echo "Nothing to commit"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
-
