@@ -1,9 +1,11 @@
+import os
+
 from instagrapi import Client
 import time
 
 # === Login ===
-username = "elias.lev.ai"
-password = "kiinfluencer"
+username = os.getenv("IG_USERNAME")
+password = os.getenv("IG_PASSWORD")
 
 cl = Client()
 cl.login(username, password)

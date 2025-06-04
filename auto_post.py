@@ -6,10 +6,8 @@ from instagrapi import Client
 from PIL import Image, ImageDraw, ImageFont
 
 # === Login ===
-username = "ki.influencer.hfu"
-password = "kiinfluencer"
-#username = os.getenv("IG_USERNAME")
-#password = os.getenv("IG_PASSWORD")
+username = os.getenv("IG_USERNAME")
+password = os.getenv("IG_PASSWORD")
 
 cl = Client()
 cl.login(username, password)
