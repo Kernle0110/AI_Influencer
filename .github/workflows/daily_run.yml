@@ -22,7 +22,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install instagrapi pillow requests
-
+          
+      - name: Decode session.json from Secret
+        run: |
+          echo "${{ secrets.IG_SESSION }}" | base64 -d > session.json
+          
       - name: Run daily_run.py
         env:
           IG_USERNAME: ${{ secrets.IG_USERNAME }}
