@@ -1,1 +1,8 @@
 python main.py --all-in-fp16 --always-gpu
+
+Linux:
+
+source venv/bin/activate
+python3 main.py
+
+deactivate
