@@ -10,7 +10,7 @@ try:
 
     # === 2. Refollow  ===
     print("📤 Führe auto_refollow.py aus...")
-    subprocess.run(['python', 'auto_refollow.py'], check=True)
+    # subprocess.run(['python', 'auto_refollow.py'], check=True)
     print("✅ Follower erfolgreich gefolt.")
 
     print("🏁 Workflow abgeschlossen.")
