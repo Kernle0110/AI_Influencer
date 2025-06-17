@@ -143,21 +143,20 @@ image.save("bild_caption.jpg")
 hashtags = " ".join(f"#{k.replace(' ', '')}" for k in keywords)
 
 # === Add manual hashtags
-manual_hashtags = """
-#poesie
-#zitat
-#zitate
-#sprüche
-#erfolg
-#lebensweisheiten
-#glücklich
-#erfolgreich
-#mindset
-#weisheiten
-#positivdenken
-#veränderung
-#gedanken
-"""
+manual_hashtags = ("#poesie "
+                   "#zitat "
+                   "#zitate "
+                   "#sprüche "
+                   "#erfolg "
+                   "#lebensweisheiten "
+                   "#glücklich "
+                   "#erfolgreich "
+                   "#mindset "
+                   "#weisheiten "
+                   "#positivdenken "
+                   "#veränderung "
+                   "#gedanken"
+                   )
 
 # === Combine all hashtags
 hashtags = f"{hashtags} {manual_hashtags.strip()}"
