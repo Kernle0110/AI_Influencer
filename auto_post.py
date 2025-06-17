@@ -185,6 +185,7 @@ if "id" in publish_json:
     print("✅ Testpost erfolgreich veröffentlicht! Post-ID:", publish_json["id"])
 else:
     print("❌ Fehler beim Veröffentlichen:", publish_json)
+    exit(1)
 print("✅ Bild mit transparentem Text-Hintergrund gepostet.")
 
 # === Move image to archive folder ===
