@@ -1,29 +1,14 @@
 import csv
 import os
 import shutil
+import time
 
-from instagrapi import Client
+import requests
 from PIL import Image, ImageDraw, ImageFont
 
 
-cl = Client()
-
-# === Check if session.json exists
-if os.path.exists("session.json"):
-    cl.load_settings("session.json")
-    username = os.getenv("IG_USERNAME")
-    password = os.getenv("IG_PASSWORD")
-    cl.login(username, password)  # Refresh login (safe)
-    print("✅ Session loaded and refreshed.")
-else:
-    # First login → will ask for Challenge if Instagram wants it
-    username = os.getenv("IG_USERNAME")
-    password = os.getenv("IG_PASSWORD")
-    cl.login(username, password)
-    cl.dump_settings("session.json")
-    print("✅ First login successful → session.json saved.")
-
-cl.login(username, password)
+ACCESS_TOKEN = os.getenv("IG_TOKEN_ELIAS")
+INSTAGRAM_USER_ID = os.getenv("IG_USERID_ELIAS")
 
 # === Folders ===
 images_folder = "images_to_post"
@@ -162,8 +147,44 @@ manual_hashtags = ("#poesie "
 hashtags = f"{hashtags} {manual_hashtags.strip()}"
 caption_text = f"{quote}\n\n{hashtags}"
 
+# === RAW-URL zur Bilddatei erzeugen (für die Instagram Graph API)
+RAW_IMAGE_URL = f"https://raw.githubusercontent.com/Kernle0110/AI_Influencer/main/bild_caption.jpg"
+print(f"📷 Lade Bild via: {RAW_IMAGE_URL}")
+
+# === 1. Container erstellen
+create_url = f"https://graph.facebook.com/v19.0/{INSTAGRAM_USER_ID}/media"
+create_params = {
+    "image_url": RAW_IMAGE_URL,
+    "caption": caption_text,
+    "access_token": ACCESS_TOKEN
+}
+
 # === Hochladen ===
-cl.photo_upload("bild_caption.jpg", caption_text)
+create_res = requests.post(create_url, data=create_params)
+create_json = create_res.json()
+print("📦 Container-Response:", create_json)
+
+if "id" not in create_json:
+    print("❌ Fehler beim Erstellen des Containers")
+    exit(1)
+
+container_id = create_json["id"]
+
+# === 2. Warten + Veröffentlichen
+time.sleep(2)
+publish_url = f"https://graph.facebook.com/v19.0/{INSTAGRAM_USER_ID}/media_publish"
+publish_params = {
+    "creation_id": container_id,
+    "access_token": ACCESS_TOKEN
+}
+publish_res = requests.post(publish_url, data=publish_params)
+publish_json = publish_res.json()
+print("🚀 Veröffentlichung-Response:", publish_json)
+
+if "id" in publish_json:
+    print("✅ Testpost erfolgreich veröffentlicht! Post-ID:", publish_json["id"])
+else:
+    print("❌ Fehler beim Veröffentlichen:", publish_json)
 print("✅ Bild mit transparentem Text-Hintergrund gepostet.")
 
 # === Move image to archive folder ===
