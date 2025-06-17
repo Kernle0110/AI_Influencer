@@ -13,6 +13,11 @@ try:
     # subprocess.run(['python', 'auto_refollow.py'], check=True)
     print("✅ Follower erfolgreich gefolt.")
 
+    # === 3. Answer comment  ===
+    print("📤 Führe answer_comments.py aus...")
+    subprocess.run(['python', 'answer_comments.py'], check=True)
+    print("✅ Kommentare erfolgreich beantwortet.")
+
     print("🏁 Workflow abgeschlossen.")
 
 except subprocess.CalledProcessError as e:
