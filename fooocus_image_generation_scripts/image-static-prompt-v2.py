@@ -3,15 +3,12 @@ import base64
 import os
 import csv
 import re
-import shutil
-from datetime import date
 
 # === Einstellungen ===
 FACE_IMAGE = "base_image_elias.png"
 FACE_IMAGE_PATH = "/home/student/AI_Influencer/fooocus_image_generation_scripts/" + FACE_IMAGE
 CSV_PATH = "/home/student/AI_Influencer/zitate.csv"
 OUTPUT_DIR = "/home/student/AI_Influencer/images_to_post"
-FOOOCUS_OUTPUT_BASE = "/home/student/Fooocus-API/outputs/files"
 API_URL = "http://127.0.0.1:8888/v2/generation/image-prompt"
 
 BASE_PROMPT = "a cinematic portrait of a thoughtful man, realistic lighting, soft shadows, shallow depth of field"
@@ -77,6 +74,7 @@ payload = {
         "adm_scaler_end": 0.3,
         "adm_scaler_negative": 0.8,
         "adm_scaler_positive": 1.5,
+        "black_out_nsfw": False,
         "clip_skip": 2,
         "freeu_enabled": False,
         "inpaint_engine": "v2.6",
@@ -108,26 +106,8 @@ print("Sende Anfrage an Fooocus-API...")
 try:
     response = requests.post(API_URL, json=payload)
     if response.status_code == 200:
-        print("Bild erfolgreich erstellt.")
-        
-        # === Bild verschieben ===
-        today = str(date.today())  # Format: YYYY-MM-DD
-        source_dir = os.path.join(FOOOCUS_OUTPUT_BASE, today)
-        
-        # Suche Datei im Output-Ordner
-        found = False
-        for file in os.listdir(source_dir):
-            if file.startswith(next_number) and file.endswith(".png"):
-                source_path = os.path.join(source_dir, file)
-                target_path = os.path.join(OUTPUT_DIR, next_filename)
-                shutil.copy(source_path, target_path)
-                print(f"Bild verschoben nach: {target_path}")
-                found = True
-                break
-
-        if not found:
-            print("Achtung: Generiertes Bild konnte im Output-Ordner nicht gefunden werden.")
-        
+        print(f"Bilder wurden erfolgreich erstellt als {next_filename}!")
+        print("Schau im Ordner: Fooocus-API/outputs/files/<heutiges Datum>")
     else:
         print(f"Fehler bei der Anfrage. Statuscode: {response.status_code}")
         print(f"Nachricht: {response.text}")

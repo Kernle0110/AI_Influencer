@@ -16,7 +16,7 @@ if not os.path.isdir(source_folder):
     print(f"Kein Ausgabeordner für heute gefunden unter: {source_folder}")
     sys.exit(1)
 
-# === Zielordner im Repo (z.B. unter 'generated_images/yyyy-mm-dd') ===
+# === Zielordner im Repo
 target_folder = os.path.join(REPO_PATH, "generated_images", today)
 os.makedirs(target_folder, exist_ok=True)
 
@@ -30,8 +30,9 @@ for file_name in os.listdir(source_folder):
 
 # === Git-Befehle ===
 try:
-    subprocess.run(["git", "add", "."], cwd=REPO_PATH, check=True)
-    subprocess.run(["git", "commit", "-m", f"Add images from {today}"], cwd=REPO_PATH, check=True)
+    relative_path = os.path.join("generated_images", today)
+    subprocess.run(["git", "add", relative_path], cwd=REPO_PATH, check=True)
+    subprocess.run(["git", "commit", "-m", f"Auto: Add images from {today}"], cwd=REPO_PATH, check=True)
     subprocess.run(["git", "push"], cwd=REPO_PATH, check=True)
     print("Änderungen erfolgreich an GitHub gepusht.")
 except subprocess.CalledProcessError as e:
