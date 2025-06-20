@@ -1,16 +1,34 @@
 import requests
+import base64
 import sys
+import os
 
-# === Argument prüfen ===
-if len(sys.argv) != 2:
-    print("Verwendung: python script.py \"<prompt>\"")
-    print("Beispiel: python script.py \"A wise, modern virtual mentor...\"")
+# === Argumente prüfen ===
+if len(sys.argv) != 3:
+    print("Verwendung: python script.py <face_image> <prompt>")
+    print("Beispiel: python script.py base_image_elias.png \"a woman playing tennis in the sunset\"")
     sys.exit(1)
 
-PROMPT = sys.argv[1]
+FACE_IMAGE_PATH = sys.argv[1]
+PROMPT = sys.argv[2]
 
-# === API-Konfiguration ===
-API_URL = "http://127.0.0.1:8888/v1/generation/text-to-image"
+# Nur erlaubte Bildnamen akzeptieren
+ALLOWED_IMAGES = ["base_image_elias.png", "base_image_maya.png"]
+if FACE_IMAGE_PATH not in ALLOWED_IMAGES:
+    print(f"Fehler: Ungültiger Bildpfad. Nur erlaubt: {ALLOWED_IMAGES}")
+    sys.exit(1)
+
+# Pfad prüfen
+if not os.path.isfile(FACE_IMAGE_PATH):
+    print(f"Fehler: Datei nicht gefunden: {FACE_IMAGE_PATH}")
+    sys.exit(1)
+
+# === Konfiguration ===
+API_URL = "http://127.0.0.1:8888/v2/generation/image-prompt"  # v2-Endpunkt
+
+# === Bild als Base64 laden ===
+with open(FACE_IMAGE_PATH, "rb") as f:
+    face_b64 = base64.b64encode(f.read()).decode("utf-8")
 
 # === JSON Payload ===
 payload = {
@@ -19,7 +37,7 @@ payload = {
     "style_selections": ["Fooocus V2", "Fooocus Enhance", "Fooocus Sharp", "Fooocus Photograph"],
     "performance_selection": "Quality",
     "aspect_ratios_selection": "1152*896",
-    "image_number": 2,
+    "image_number": 1,
     "image_seed": -1,
     "sharpness": 2,
     "guidance_scale": 4,
@@ -28,10 +46,7 @@ payload = {
     "refiner_switch": 0.5,
     "loras": [
         {"enabled": True, "model_name": "sd_xl_offset_example-lora_1.0.safetensors", "weight": 0.1},
-        *[
-            {"enabled": True, "model_name": "None", "weight": 1}
-            for _ in range(4)
-        ]
+        *[{"enabled": True, "model_name": "None", "weight": 1} for _ in range(4)]
     ],
     "advanced_params": {
         "adaptive_cfg": 7,
@@ -80,22 +95,39 @@ payload = {
     "save_meta": True,
     "meta_scheme": "fooocus",
     "save_extension": "png",
-    "save_name": "output_text_to_image",
+    "save_name": "output_faceswap",
     "read_wildcards_in_order": False,
     "require_base64": True,
     "async_process": False,
-    "webhook_url": ""
+    "webhook_url": "",
+    "input_image": "",
+    "input_mask": "",
+    "inpaint_additional_prompt": "",
+    "outpaint_selections": [],
+    "outpaint_distance_left": -1,
+    "outpaint_distance_right": -1,
+    "outpaint_distance_top": -1,
+    "outpaint_distance_bottom": -1,
+    "image_prompts": [
+        {
+            "cn_img": face_b64,
+            "cn_stop": 1.0,
+            "cn_weight": 1.0,
+            "cn_type": "FaceSwap"
+        }
+    ]
 }
 
-# === Anfrage senden ===
+# === API-Request senden ===
 print("Sende Anfrage an Fooocus-API...")
 
 try:
     response = requests.post(API_URL, json=payload)
     if response.status_code == 200:
         print("Bilder wurden erfolgreich erstellt!")
-        print("Die Bilder befinden sich im Ordner: Fooocus-API\\outputs\\files\\<heutiges Datum>")
+        print("Schau im Ordner: Fooocus-API/outputs/files/<heutiges Datum>")
     else:
-        print(f"Fehler bei der Anfrage. Statuscode: {response.status_code}, Nachricht: {response.text}")
+        print(f"Fehler bei der Anfrage. Statuscode: {response.status_code}")
+        print(f"Nachricht: {response.text}")
 except requests.exceptions.RequestException as e:
     print(f"Verbindungsfehler: {e}")
