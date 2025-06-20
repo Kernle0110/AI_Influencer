@@ -9,12 +9,13 @@ if len(sys.argv) != 3:
     print("Beispiel: python script.py base_image_elias.png \"a woman playing tennis in the sunset\"")
     sys.exit(1)
 
-FACE_IMAGE_PATH = "/home/student/AI_Influencer/fooocus_image_generation_scripts/"+sys.argv[1]
+FACE_IMAGE = sys.argv[1]
+FACE_IMAGE_PATH = "/home/student/AI_Influencer/fooocus_image_generation_scripts/" + FACE_IMAGE
 PROMPT = sys.argv[2]
 
 # Nur erlaubte Bildnamen akzeptieren
 ALLOWED_IMAGES = ["base_image_elias.png", "base_image_maya.png"]
-if FACE_IMAGE_PATH not in ALLOWED_IMAGES:
+if FACE_IMAGE not in ALLOWED_IMAGES:
     print(f"Fehler: Ungültiger Bildpfad. Nur erlaubt: {ALLOWED_IMAGES}")
     sys.exit(1)
 
@@ -95,7 +96,7 @@ payload = {
     "save_meta": True,
     "meta_scheme": "fooocus",
     "save_extension": "png",
-    "save_name": "output_faceswap",
+    "save_name": "output_faceswap_" + FACE_IMAGE,
     "read_wildcards_in_order": False,
     "require_base64": True,
     "async_process": False,
