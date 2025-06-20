@@ -37,7 +37,7 @@ for file_name in os.listdir(source_folder):
 
 # === Git-Befehle ===
 try:
-    relative_path = os.path.join("generated_images", today)
+    relative_path = "images_to_post"
     subprocess.run(["git", "add", relative_path], cwd=REPO_PATH, check=True)
     subprocess.run(["git", "commit", "-m", f"Auto: Add images from {today}"], cwd=REPO_PATH, check=True)
     subprocess.run(["git", "push"], cwd=REPO_PATH, check=True)
