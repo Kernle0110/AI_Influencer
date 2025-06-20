@@ -5,8 +5,8 @@ import shutil
 import sys
 
 # === Einstellungen ===
-REPO_PATH = "/home/student/your-github-repo"  # Pfad zum lokalen Klon deines GitHub-Repos
-SOURCE_BASE_PATH = "/home/student/Fooocus_API/outputs/files"
+REPO_PATH = "/home/student/AI_Influencer" 
+SOURCE_BASE_PATH = "/home/student/Fooocus-API/outputs/files"
 
 # === Aktuelles Datum (Ordnername) ===
 today = datetime.date.today().isoformat()
