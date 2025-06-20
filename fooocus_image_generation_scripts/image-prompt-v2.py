@@ -9,7 +9,7 @@ if len(sys.argv) != 3:
     print("Beispiel: python script.py base_image_elias.png \"a woman playing tennis in the sunset\"")
     sys.exit(1)
 
-FACE_IMAGE_PATH = sys.argv[1]
+FACE_IMAGE_PATH = "/home/student/AI_Influencer/fooocus_image_generation_scripts/"+sys.argv[1]
 PROMPT = sys.argv[2]
 
 # Nur erlaubte Bildnamen akzeptieren
