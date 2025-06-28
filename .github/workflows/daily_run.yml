@@ -33,15 +33,16 @@ jobs:
           
       - name: Run daily_run.py
         env:
-          IG_USERNAME: ${{ secrets.IG_USERNAME }}
-          IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
+          IG_ELIAS_USERNAME: ${{ secrets.IG_ELIAS_USERNAME }}
+          IG_ELIAS_PASSWORD: ${{ secrets.IG_ELIAS_PASSWORD }}
+          IG_ELIAS_USER_ID: ${{ secrets.IG_ELIAS_USER_ID }}
+          IG_ELIAS_USER_TOKEN: ${{ secrets.IG_ELIAS_USER_TOKEN }}
+          IG_ELIAS_PAGE_TOKEN: ${{ secrets.IG_ELIAS_PAGE_TOKEN }}
           IG_USERNAME_MAYA: ${{ secrets.IG_USERNAME_MAYA }}
           IG_PASSWORD_MAYA: ${{ secrets.IG_PASSWORD_MAYA }}
-          IG_SESSION: ${{ secrets.IG_SESSION }}
-          IG_TOKEN_ELIAS: ${{ secrets.IG_TOKEN_ELIAS }}
-          IG_USERID_ELIAS: ${{ secrets.IG_USERID_ELIAS }}
           IG_TOKEN_MAYA: ${{ secrets.IG_TOKEN_MAYA }}
           IG_USERID_MAYA: ${{ secrets.IG_USERID_MAYA }}
+
 
 
         run: python daily_run.py
