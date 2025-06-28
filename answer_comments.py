@@ -2,8 +2,8 @@ import requests
 import random
 
 # Access Token and User-ID
-ACCESS_TOKEN = os.getenv("IG_TOKEN_ELIAS")
-IG_USER_ID = os.getenv("IG_USERID_ELIAS")
+ACCESS_TOKEN = os.getenv("IG_ELIAS_USER_TOKEN")
+IG_USER_ID = os.getenv("IG_ELIAS_USER_ID")
 
 # Mögliche Antworten
 ANTWORTEN = [
