@@ -1,5 +1,6 @@
 import requests
 import random
+import os
 
 # Access Token and User-ID
 ACCESS_TOKEN = os.getenv("IG_ELIAS_USER_TOKEN")
