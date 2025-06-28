@@ -7,8 +7,8 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 
 
-ACCESS_TOKEN = os.getenv("IG_TOKEN_ELIAS")
-INSTAGRAM_USER_ID = os.getenv("IG_USERID_ELIAS")
+ACCESS_TOKEN = os.getenv("IG_ELIAS_PAGE_TOKEN")
+INSTAGRAM_USER_ID = os.getenv("IG_ELIAS_USER_ID")
 
 # === Folders ===
 images_folder = "images_to_post"
