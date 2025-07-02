@@ -157,7 +157,7 @@ class ZitatApp(QWidget):
 
     def submit_data(self):
         zitat = self.zitat_feld.toPlainText()
-        hashtags = self.hashtag_feld.text()
+        hashtags = self.hashtag_feld.text().replace(",", " ")
         print("Zitat:", zitat)
         print("Hashtags:", hashtags)
         self.post(zitat, hashtags)
@@ -292,7 +292,7 @@ class ZitatApp(QWidget):
             exit(1)
 
         # === Instagram-Caption erzeugen ===
-        hashtags = hashtags.split()
+        hashtags = ' '.join(hashtags.split())
 
         # === Add manual hashtags
         manual_hashtags = ("#poesie "
