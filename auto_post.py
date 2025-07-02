@@ -1,14 +1,15 @@
 import csv
 import os
 import shutil
+import subprocess
 import time
 
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
 
-ACCESS_TOKEN = os.getenv("IG_TOKEN_ELIAS")
-INSTAGRAM_USER_ID = os.getenv("IG_USERID_ELIAS")
+ACCESS_TOKEN = os.getenv("IG_ELIAS_PAGE_TOKEN")
+INSTAGRAM_USER_ID = os.getenv("IG_ELIAS_USER_ID")
 
 # === Folders ===
 images_folder = "images_to_post"
@@ -123,6 +124,18 @@ for line in lines:
 # === In RGB konvertieren & speichern ===
 image = image.convert("RGB")
 image.save("bild_caption.jpg")
+
+# === Git Commit & Push (damit RAW-URL das neue Bild lädt) ===
+try:
+    subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
+    subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
+    subprocess.run(["git", "add", "bild_caption.jpg"], check=True)
+    subprocess.run(["git", "commit", "-m", f"Update caption image for post {post_number}"], check=True)
+    subprocess.run(["git", "push"], check=True)
+    print("✅ Bild erfolgreich committet und gepusht.")
+except subprocess.CalledProcessError as e:
+    print(f"❌ Git-Fehler beim Commit oder Push: {e}")
+    exit(1)
 
 # === Instagram-Caption erzeugen ===
 hashtags = " ".join(f"#{k.replace(' ', '')}" for k in keywords)

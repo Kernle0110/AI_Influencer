@@ -1,9 +1,10 @@
 import requests
 import random
+import os
 
 # Access Token and User-ID
-ACCESS_TOKEN = "EAAJAIdThZAZCgBOxOQQXuUA1VbzPqvHmMClK52JKQEFt1oL8xihHJfnG2FQZBgUEBGCr9rRsD9rgiCMDUWvqXRO2Hf5TuHoFvrjb8FV3ghqLXupudUOTPbDGaKZBtwoRbpZAu91se0XaiGVbx9E9inV0Y3ExZAJcJwgf3kvW2rhConOvjTMS8T3ZAKefPbvpMJQUpS6JwzGbzThGy2Y29KTKUzezE9KtP0o"
-IG_USER_ID = "17841473970080369"
+ACCESS_TOKEN = os.getenv("IG_ELIAS_USER_TOKEN")
+IG_USER_ID = os.getenv("IG_ELIAS_USER_ID")
 
 # Mögliche Antworten
 ANTWORTEN = [
