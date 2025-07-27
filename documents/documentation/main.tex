@@ -58,13 +58,92 @@ In diesem Kapitel werden die allgemeinen Vorbereitungen für dieses Projekt beha
 \subsection{Rechtliche Ausgangslage}
 
 \subsection{Marktanalyse}
+
+Die Entwicklung eines digitalen Influencers erfordert ein fundiertes Verständnis der aktuellen Markt- und Zielgruppenlage. In diesem Zusammenhang wurden sowohl bestehende Trends im Bereich virtueller Persönlichkeiten als auch konkrete Plattformdaten analysiert, um die strategische Ausrichtung des Projekts zu begründen. 
+
+\textbf{Aktuelle Trends und Relevanz} \\
+Virtuelle Influencer sind in den letzten Jahren zunehmend in den Fokus von Marken, Plattformen und Nutzer:innen gerückt. Digitale Persönlichkeiten wie Lil Miquela, Lu do Magalu oder Aitana Lopez  erzielen auf Social Media Reichweiten und Interaktionen ganz ohne physische Existenz. Parallel dazu steigt das gesellschaftliche Interesse an Themen wie Persönlichkeits- entwicklung, Coaching und Mental Health. \\\\
+Besonders auffällig ist, dass die Akzeptanz gegenüber KI-gestützten Inhalten bei der Generation Z und den Millennials stetig wächst. Diese Gruppen zeigen sich offen für neue Formate, experimentelle digitale Erlebnisse und alternative Identifikationsfiguren. Dies sind  ideale Voraussetzungen für das Konzept eines KI-basierten Influencers mit beratendem, sowie motivierendem Charakter. 
+
+\textbf{Wettbewerbsanalyse} \\
+Eine gezielte Wettbewerbsanalyse zeigte, dass es im Bereich der inspirierenden, mentorartigen virtuellen Influencerderzeit nur wenig direkte Konkurrenz gibt. Während es viele menschliche Influencer mit Coaching-Charakter gibt, wie etwa Ali Abdaal oder Mel Robbins, ist das Feld der virtuellen Mentoren bislang kaum besetzt. Daraus ergibt sich eine vielversprechende Nische mit Differenzierungspotenzial. \\
+
+\textbf{Zielgruppenanalyse} \\
+Basierend auf Plattformdaten und thematischer Ausrichtung wurde folgende Zielgruppe definiert:
+\begin{itemize}
+    \item Alter: 16–35 Jahre
+    \item Geschlecht: alle
+    \item Bildung: Schüler:innen, Studierende, Berufseinsteiger:innen
+    \item Bedürfnisse: Motivation, Struktur, Inspiration, Karriereorientierung
+    \item Werte: Offenheit, Selbstreflexion, digitale Affinität
+    \item Pain Points: Überforderung, Prokrastination, mangelnde Orientierung
+    \item Verhalten: tägliche Nutzung sozialer Medien, bevorzugt kurze, motivierende Inhalte (z.B. Reels oder Zitat-Posts), aktive Beteiligung durch Likes, Kommentare und Story-Interaktionen \\
+\end{itemize} 
+
+\textbf{Plattformwahl} \\
+Die Wahl der Plattform fiel auf Instagram, da sie optimal zur Zielgruppe passt. Mit über 30 Millionen Nutzer:innen allein in Deutschland und einem Hauptanteil von 62,3\% zwischen 18 und 34 Jahren ist die Plattform eine zentrale Plattform für die ausgewählte Zielgruppe .
+Übersicht der Vorteile, die Instagram bietet:
+\begin{itemize}
+    \item Visuelle Ausrichtung: ideal für den ästhetisch gestalteten Content eines virtuellen Influencers
+    \item Vielfalt an Formaten: Reels, Karussell-Posts, Storys, Highlights
+    \item Hohe Interaktionsmöglichkeiten: durch Sticker, Umfragen, DMs
+    \item Algorithmische Reichweite: insbesondere für neue Accounts mit relevantem Content
+\end{itemize}
+Zudem lassen sich durch gezielte Hashtag-Strategien, Posting-Zeiten sowie ein einheitliches visuelles Design mit klaren Botschaften starke Wiedererkennungswerte schaffen.
+
+
 \subsection{Toolrecherche}
+
+Um die Anforderungen unseres Projekts, insbesondere die vollautomatisierte Generierung realistischer Bildinhalte für eine digitale Influencer-Persona bestmöglich umzusetzen, wurde eine umfassende Recherche und Analyse geeigneter Softwaretools durchgeführt. Der Fokus lag dabei auf folgenden Auswahlkriterien:
+\begin{itemize}
+    \item Realistische Bildqualität
+    \item Automatisierbarkeit über eine API (z.B. mit Python)
+    \item Kostenfreiheit
+    \item Open-Source-Verfügbarkeit
+    \item Konsistente Bildausgabe für ein gleichbleibendes Gesicht
+\end{itemize}
+
+Im Folgenden werden die untersuchten Tools vorgestellt. \\
+
+\textbf{ChatGPT (mit DALL·E)} \\
+ChatGPT in der kostenpflichtigen Version „ChatGPT Plus“ bietet integrierten Zugriff auf das KI-Bildgenerierungstool DALL·E. Die erzeugten Bilder sind qualitativ hochwertig, und Funktionen wie Inpainting sind bereits implementiert.
+Einschränkend ist jedoch die fehlende API-Zugänglichkeit für Bildgenerierung: DALL·E kann derzeit nur direkt in der ChatGPT-Oberfläche verwendet werden. Eine automatisierte Ansteuerung über Python ist nicht möglich. Zudem ist für den Zugriff eine kostenpflichtige Lizenz erforderlich.
+\\
+
+\textbf{Stability AI (Stable Diffusion API)} \\
+Stability AI stellt mit Stable Diffusion ein leistungsfähiges Bildgenerierungsmodell bereit. Es kann über eine offizielle API angesteuert werden, was prinzipiell eine automatisierte Integration in Workflows ermöglicht.
+Allerdings basiert das Nutzungsmodell auf einem Credit-System, bei dem jede Bildgenerierung mit Kosten verbunden ist. Dadurch ist der Einsatz für eine regelmäßige, automatisierte Bildproduktion potenziell mit höheren Betriebskosten verbunden.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/StabilityAI.png}
+    \caption{Tabellarische Darstellung der Nutzungskosten von Stability AI für Bildgenerierungen}
+    \label{fig:stabilityai}
+\end{figure}
+
+
+\textbf{Hugging Face} \\
+Hugging Face bietet eine Plattform mit zahlreichen KI-Modellen, darunter viele Varianten von Stable Diffusion, DreamBooth und ControlNet. Besonders hervorzuheben ist die API-Integration, über die sich Bildgenerierung auch automatisiert per Python-Skript anstoßen lässt.
+Viele Modelle auf Hugging Face sind kostenfrei nutzbar, wobei es je nach Nutzungslast Einschränkungen hinsichtlich Rechenleistung und Geschwindigkeit geben kann.
+\\
+
+\textbf{Fooocus} \\
+Fooocus ist ein Open-Source-Tool zur KI-Bildgenerierung auf Basis von Stable Diffusion. Es zeichnet sich durch eine besonders benutzerfreundliche Oberfläche aus, die komplexe Parameter automatisch im Hintergrund konfiguriert. Die Bildgenerierung erfolgt ausschließlich über Text-Prompts, was die Bedienung stark vereinfacht.
+Darüber hinaus bietet Fooocus Unterstützung für moderne Bildverarbeitungstechnologien wie ControlNet, Inpainting und Upscaling. Die Software kann lokal installiert und betrieben werden, was eine Nutzung ohne laufende Kosten und ohne externe Cloud-Dienste ermöglicht.
+
+
 
 \section{Auswahl der Technologien}
 \subsection{Python}
 \subsection{Github}
 \subsection{Ollama}
 \subsection{Fooocus}
+
+Nach der Analyse verschiedener KI-gestützter Bildgenerierungstools fiel die finale Wahl auf Fooocus. Das Open-Source-Tool erfüllte sämtliche Anforderungen unseres Projekts in Bezug auf Bildqualität, Konsistenz, Kostenfreiheit, Automatisierbarkeit und lokale Nutzbarkeit.
+Fooocus basiert auf dem Modell Stable Diffusion und verfolgt einen benutzerfreundlichen Ansatz. Statt komplexer technischer Einstellungen konzentriert sich die Nutzung auf die Eingabe eines Prompts, also einer textuellen Beschreibung des gewünschten Bildinhalts. Alle weiteren Parameter wie Stil, Sampler, Bildgröße oder Upscaling werden im Hintergrund automatisch optimiert. Dies erleichtert nicht nur den Einstieg, sondern ermöglicht auch eine schnelle und konsistente Generierung hochwertiger Bilder. \\\\
+Ein besonderer Vorteil von Fooocus im Kontext unseres Projekts ist die Fähigkeit, stilistisch einheitliche und visuell konsistente Bildserien zu erzeugen. Für die digitale Persona war es entscheidend, dass das Gesicht über viele Beiträge hinweg wiedererkennbar bleibt. Fooocus unterstützt hierfür moderne Technologien wie ControlNet, Inpainting und VAE-Optimierungen, mit denen sich gezielt Details im Bild verändern lassen, ohne das Gesamtbild zu verfälschen.
+Durch die Open-Source-Lizenz bietet Fooocus volle Kontrolle über die Software sowie eine lokale Ausführbarkeit ohne laufende Kosten. Dies ermöglichte eine flexible Integration in bestehende Workflows und bildete eine solide Grundlage für die spätere Automatisierung des Bildgenerierungsprozesses.
+
 \subsection{Meta-API}
 
 
@@ -105,6 +184,14 @@ Dieses Bild diente als Grundlage für die erste visuelle Iteration von Elias und
 \subsection{Datenschutz}
 \subsection{Meta-API}
 \subsection{Videogenerierung}
+
+Ein zentraler Bestandteil unseres Projekts war die Idee, nicht nur Bilder, sondern auch kurze Videos automatisiert zu erzeugen und in die Content-Strategie zu integrieren. Gerade auf Plattformen wie Instagram spielen bewegte Inhalte wie Reels, Storys und Shorts eine große Rolle für die Reichweite und das Engagement der Nutzer. Dementsprechend war das Ziel, mithilfe einer KI neben Bilder auch Videos zu generieren, die zur digitalen Persönlichkeit des Influencers passen. \\\\
+Dabei war eine wichtige Voraussetzung des Projekts, ausschließlich Open-Source-Tools oder kostenlose APIs zu nutzen. Der gesamte Content sollte automatisiert, datenschutzkonform und möglichst unabhängig von kommerziellen Anbietern erzeugt werden. In der Praxis stellte sich jedoch schnell heraus, dass dies im Bereich der Videogenerierung kaum möglich ist.
+Nach intensiver Recherche wurde deutlich, dass es derzeit keine Open-Source-Plattform gibt, die eine kostenlose API-Schnittstelle für die KI-basierte Videogenerierung anbietet. Die wenigen existierenden Lösungen, wie etwa RunwayML oder Leonardo AI– bieten zwar beeindruckende Ergebnisse, sind jedoch nur über kostenpflichtige Abonnements nutzbar. Eine direkte Anbindung an unsere eigenen Python-Skripte zur automatisierten Erstellung und Veröffentlichung wäre damit entweder technisch nicht umsetzbar. \\\\
+Auch Versuche, über Umwege (z.B. durch Kombination einzelner Open-Source-Komponenten wie Stable Diffusion und Text-to-Speech) eigene Pipelines zu bauen, zeigten sich als zu aufwendig und instabil für einen produktiven Einsatz im Projektzeitraum. Besonders problematisch war dabei der enorme Rechenaufwand sowie die fehlende zeitliche Synchronisation zwischen Bild, Ton und Animation.
+
+Da es keine passende Open-Source-Lösung zur Videogenerierung mit API-Schnittstelle gab, musste dieses Feature im Projektverlauf verworfen werden. Stattdessen konzentrierten wir uns auf die Erstellung von Bildinhalten, welche ebenfalls einen großen Einfluss auf Reichweite und Community-Aufbau hat. Trotz dieser Einschränkung konnten wir wichtige Erfahrungen im Bereich KI-Recherche, API-Integration und Tool-Auswahl sammeln.
+
 
 \section{Fazit und Zukunftsaussichten}
 
