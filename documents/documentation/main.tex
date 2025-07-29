@@ -160,12 +160,30 @@ Python wurde im Projekt als zentrale Programmiersprache eingesetzt und bildete d
 
 Im Projektkontext wurde Python genutzt, um Bild- und Textgenerierungsprozesse zu steuern, lokale KI-Modelle anzusprechen (z.\,B. über die Kommandozeile mit Ollama), Bilddateien zu verwalten, sowie automatisierte Inhalte an Instagram zu übermitteln. Dafür kamen unter anderem Bibliotheken wie \texttt{subprocess} (zur Systemansteuerung), \texttt{os} (Dateioperationen), \texttt{requests} (API-Kommunikation), \texttt{json} (Datenstrukturierung) und \texttt{schedule} (Task-Planung) zum Einsatz.
 
-Ein entscheidender Vorteil lag in der nahtlosen Integration mit \textbf{GitHub Actions}, wodurch sich Python-Skripte zeit- oder ereignisbasiert auf einem Server ausführen ließen – ganz ohne manuelles Eingreifen. So konnten beispielsweise neue Inhalte vollautomatisch generiert und veröffentlicht werden, sobald ein geplanter Posting-Zeitpunkt erreicht war.
+Ein entscheidender Vorteil lag in der nahtlosen Integration mit GitHub Actions, wodurch sich Python-Skripte zeit- oder ereignisbasiert auf einem Server ausführen ließen – ganz ohne manuelles Eingreifen. So konnten beispielsweise neue Inhalte vollautomatisch generiert und veröffentlicht werden, sobald ein geplanter Posting-Zeitpunkt erreicht war.
 
 Auch komplexere Prozesse wie die Auswahl passender Hashtags, das Einbinden von Variablen in Texttemplates oder der Umgang mit unterschiedlichen Inhaltsformaten ließen sich in Python übersichtlich und modular abbilden. Python ermöglichte es dem Team, technische Flexibilität mit klarer Wartbarkeit zu verbinden – ein wesentlicher Erfolgsfaktor im Hinblick auf die Skalierbarkeit und Wiederverwendbarkeit des Projektcodes.
 
 \subsection{Github}
+
+GitHub diente im Projekt nicht nur als zentrales Versionsverwaltungssystem, sondern spielte auch eine tragende Rolle in der automatisierten Ausführung der technischen Abläufe. Über die Plattform wurde der gesamte Quellcode entwickelt, dokumentiert und versioniert. GitHub ermöglichte es dem Team, effizient verteilt zu arbeiten, Änderungen nachzuvollziehen und reproduzierbare Ergebnisse zu sichern.
+
+Besonders zentral war der Einsatz von GitHub Actions. Damit konnten Workflows definiert werden, die auf bestimmte Ereignisse reagieren – etwa das Hinzufügen neuer Bilddateien, geplante Zeitpunkte oder manuelle Trigger. Die automatisierte Generierung und Veröffentlichung von Social-Media-Inhalten basierte auf diesen Workflows. So wurde unter anderem bei jedem neuen Bild automatisch ein Python-Skript ausgeführt, das sowohl Text generierte (via Ollama) als auch Bild und Beschreibung über die Meta Graph API an Instagram übermittelte.
+
+Für den sicheren Umgang mit sensiblen Informationen wie API-Zugängen oder Tokens wurden die GitHub Secrets genutzt. Sie ermöglichten es, vertrauliche Daten wie Zugriffstoken für die Meta-Plattform oder interne Variablen sicher im Repository zu hinterlegen, ohne dass diese im Quellcode sichtbar waren. Die Secrets wurden automatisch zur Laufzeit der Actions in das jeweilige Skript eingebunden und konnten so ohne manuelle Eingabe sicher verwendet werden.
+
+Ein weiterer Vorteil von GitHub Actions war die einfache Wartbarkeit und Erweiterbarkeit: neue Automatisierungsschritte konnten modular ergänzt werden, etwa für Statusanzeigen, Log-Dateien oder Validierungen. Die Kombination aus Versionskontrolle, Automatisierung und sicherem Geheimnismanagement machte GitHub zu einem zentralen Baustein für die technische Struktur und Effizienz des Projekts.
+
 \subsection{Ollama}
+
+Ollama wurde im Projekt als Laufzeitumgebung für lokal ausgeführte Large Language Models (LLMs) eingesetzt und bildete das Kernstück der automatisierten Textgenerierung. Das Tool ermöglicht es, moderne Sprachmodelle wie LLaMA~3, Mistral oder Zephyr direkt auf dem eigenen System zu betreiben – ohne Abhängigkeit von externen Cloud-Diensten. Diese Eigenschaft war ein zentraler Entscheidungsfaktor im Hinblick auf Datenschutz, Automatisierbarkeit und Unabhängigkeit.
+
+Durch die schlanke Kommandozeilen-Schnittstelle ließ sich Ollama problemlos in Python-Skripte einbinden und konnte so im Rahmen automatisierter Workflows verwendet werden. Das Tool eignete sich besonders für die Generierung von Social-Media-Captions, Hashtag-Blöcken und Beschreibungstexten, da es auf vorgefertigte Prompts reagieren und konsistente Ergebnisse liefern konnte. Die generierten Texte wurden anschließend automatisch weiterverarbeitet und in die Post-Logik integriert.
+
+Ein zusätzlicher Vorteil lag in der lokalen Kontrolle über das Modellverhalten und den Prompt-Flow: Experimentelle Anpassungen konnten sofort umgesetzt werden, ohne dass externe Abhängigkeiten berücksichtigt werden mussten. Zudem war die Nutzung von Ollama vollständig kostenlos und auch auf leistungsschwächerer Hardware praktikabel.
+
+Im Gesamtprojekt spielte Ollama damit eine Schlüsselrolle in der textuellen Content-Produktion – effizient, lokal ausführbar und vollständig automatisierbar.
+
 \subsection{Fooocus}
 
 Nach der Analyse verschiedener KI-gestützter Bildgenerierungstools fiel die finale Wahl auf Fooocus. Das Open-Source-Tool erfüllte sämtliche Anforderungen unseres Projekts in Bezug auf Bildqualität, Konsistenz, Kostenfreiheit, Automatisierbarkeit und lokale Nutzbarkeit.
@@ -203,8 +221,84 @@ Dieses Bild diente als Grundlage für die erste visuelle Iteration von Elias und
 
 \section{Automatisierung}
 \subsection{Zitatgenerierung}
+Im Rahmen des Projekts spielte die automatisierte Textgenerierung eine zentrale Rolle, da sämtliche Captions für Instagram-Posts dynamisch erstellt werden sollten. Ziel war es, vollautomatisch inspirierende Lebenszitate zu generieren, diese mit passenden Schlagwörtern zu versehen und strukturiert für die spätere Verarbeitung bereitzustellen. Dies erfolgte vollständig lokal und ohne Nutzung externer Cloud-Dienste, wodurch sowohl Datenschutzaspekte als auch technische Kontrolle gewährleistet waren.
+
+\paragraph{Eingesetzte Technologie: Ollama + LLaMA~3}
+
+Für die Textgenerierung kam das Tool \textbf{Ollama} zum Einsatz. Es ermöglicht das Ausführen großer Sprachmodelle (LLMs) lokal auf dem eigenen System. Im Projekt wurde dabei konkret das Modell \textbf{LLaMA~3} verwendet. Die Kommunikation mit dem Modell erfolgte über eine HTTP-API, die von Ollama bereitgestellt wird.
+
+\paragraph{Ablauf der Textgenerierung}
+
+Das zentrale Skript \("\)generate\_content.py\("\) steuert die gesamte Generierung. Es arbeitet in mehreren Phasen:
+
+\begin{enumerate}
+    \item \textbf{Initialer Prompt:} Ein speziell formulierter Prompt wird an das Modell gesendet, um ein tiefgründiges deutsches Lebenszitat zu erzeugen, ergänzt durch 1–3 Schlagwörter. Dabei wird das Modell zur Ausgabe in einem klaren Format aufgefordert:
+
+    \textit{Zitat (Zeilenumbruch) Stichwort1, Stichwort2, Stichwort3}
+
+    \item \textbf{Verfeinerung in mehreren Stufen:} Die erhaltene Rohantwort wird anschließend in zwei weiteren Schritten stilistisch überarbeitet und formal bereinigt. Jeder Schritt nutzt erneut das LLM zur Umformulierung bei kontrollierter Temperatur.
+
+    \item \textbf{Strukturierung und Speicherung:} Nach der finalen Verarbeitung wird das Zitat samt Schlagwörtern in der Datei \textit{zitate.csv} gespeichert. Die Datei enthält eine fortlaufende Nummerierung zur eindeutigen Identifikation der Einträge. Der Aufbau folgt dem Schema:
+
+    \textit{nr,zitat,schlagworte} \\
+    \textit{001,Manchmal beginnt ein neuer Weg mit einem einzigen Gedanken.,Neuanfang, Entscheidung, Perspektive}
+\end{enumerate}
+
 \subsection{Bildgenerierung}
 \subsection{Automatisches Posten}
+
+Nach der automatisierten Erstellung von Zitaten war das automatische Veröffentlichen dieser Inhalte auf Instagram ein zentraler Bestandteil des Gesamtworkflows. Ziel war es, den Postingprozess vollständig zu automatisieren – vom Laden des Bildes über das Einbetten des Zitats bis hin zur Veröffentlichung via Meta Graph API. Dies wurde durch das Python-Skript \texttt{auto\_post.py} realisiert.
+
+\paragraph{Gesamtablauf}
+
+Das Skript übernimmt mehrere Schritte in fest definierter Reihenfolge:
+
+\begin{enumerate}
+    \item \textbf{Bildauswahl:} Aus einem definierten Ordner (\texttt{images\_to\_post}) wird automatisch das erste verfügbare Bild (nach Dateinamen sortiert) ausgewählt.
+
+    \item \textbf{Laden von Zitat und Schlagwörtern:} Passend zum Bildnamen (z.\,B. \texttt{003.jpg}) wird in der Datei \texttt{zitate.csv} das entsprechende Zitat samt Schlagwörtern geladen.
+
+    \item \textbf{Gestaltung des Bildes:} Das Zitat wird typografisch auf dem Bild platziert, inklusive halbtransparenter Textbox zur besseren Lesbarkeit. Die Textzeilen werden dabei automatisch umgebrochen, zentriert und optisch ansprechend dargestellt. Die fertige Version wird als \texttt{bild\_caption.jpg} gespeichert.
+
+    \item \textbf{Git-Commit für RAW-URL:} Da die Instagram Graph API eine öffentliche URL für das Bild benötigt, wird das neue Bild automatisch in das GitHub-Repository gepusht, um über \texttt{raw.githubusercontent.com} verfügbar zu sein.
+
+    \item \textbf{Erzeugung der Caption:} Die Caption besteht aus dem Zitat selbst sowie einer Hashtag-Zeile. Die verwendeten Schlagwörter werden zu Hashtags umgewandelt und mit einem vordefinierten Hashtag-Block ergänzt.
+
+    \item \textbf{Posten via Meta Graph API:} Die Bild-URL und Caption werden an die Meta-API übermittelt. Der Upload erfolgt in zwei Schritten:
+    \begin{itemize}
+        \item Container-Erstellung mit Bild und Text
+        \item Veröffentlichung über die erhaltene Container-ID
+    \end{itemize}
+
+    \item \textbf{Archivierung:} Nach erfolgreichem Upload wird das gepostete Bild in einen Archivordner (\texttt{archive\_images}) verschoben, um doppelte Veröffentlichungen zu vermeiden.
+\end{enumerate}
+
+\paragraph{Sicherheit und API-Zugang}
+
+Der Zugriff auf Instagram erfolgt über die offizielle \textbf{Meta Graph API} unter Verwendung eines langfristigen Zugriffstokens (\texttt{IG\_ELIAS\_PAGE\_TOKEN}). Dieser Token sowie die Nutzer-ID werden sicher in GitHub Secrets hinterlegt und über Umgebungsvariablen abgerufen.
+
+\paragraph{Vorteile des Systems}
+
+\begin{itemize}
+    \item \textbf{Vollständige Automatisierung} ohne manuelle Eingriffe
+    \item \textbf{Zuverlässige Zuordnung} von Bildern und Zitaten über Dateinummern
+    \item \textbf{Datensicherheit} durch GitHub Secrets
+    \item \textbf{Öffentliche RAW-URL} über GitHub als elegante Lösung für API-Anforderungen
+\end{itemize}
+
+Das System bildet damit einen robusten, erweiterbaren und wartungsarmen Workflow, um Content automatisiert auf Instagram zu veröffentlichen.
+\subsection{Archivierung und Rückverfolgbarkeit}
+
+Um die Nachvollziehbarkeit und Wiederverwendbarkeit der generierten Inhalte sicherzustellen, wurde ein durchgängiger Archivierungsmechanismus implementiert. Jeder automatisch gepostete Beitrag – bestehend aus Bild, Zitat und Schlagwörtern – wird systematisch gesichert.
+
+\begin{itemize}
+    \item Die verwendeten Bilder werden nach dem erfolgreichen Upload in einen separaten Ordner namens \texttt{archive\_images} verschoben.
+    \item Die zugehörigen Zitate mit Schlagwörtern werden fortlaufend in der Datei \texttt{zitate.csv} dokumentiert.
+    \item Durch die fortlaufende Nummerierung können Inhalte jederzeit eindeutig zugeordnet und bei Bedarf erneut verwendet, angepasst oder analysiert werden.
+\end{itemize}
+
+Diese strukturierte Archivierung dient als Basis für eine mögliche Wiederveröffentlichung, statistische Auswertung oder Weiterverarbeitung zu einem späteren Zeitpunkt.
+
 \subsection{Interaktion mit Community}
 
 \section{Follower Analyse}
@@ -212,6 +306,19 @@ Dieses Bild diente als Grundlage für die erste visuelle Iteration von Elias und
 \section{Herausforderungen}
 \subsection{Datenschutz}
 \subsection{Meta-API}
+\subsubsection{Meta AI – Erste Versuche mit \texttt{instagrapi}}
+
+Zu Beginn der technischen Umsetzung bestand eine zentrale Herausforderung darin, automatisiert Inhalte auf Instagram zu veröffentlichen – insbesondere ohne sofortigen Zugriff auf die offizielle Meta Graph API. Um die grundlegende Funktionsweise des Systems zu testen und das Zusammenspiel der einzelnen Komponenten (Textgenerierung, Bildverarbeitung, Upload) frühzeitig zu erproben, wurde in der Anfangsphase des Projekts die inoffizielle Python-Bibliothek \texttt{instagrapi} eingesetzt.
+
+Diese Community-basierte Bibliothek ermöglicht einen einfachen Zugriff auf Funktionen der Instagram-Plattform, indem sie das Verhalten der offiziellen App technisch nachahmt. Damit ließ sich das automatische Posten aus Python heraus unkompliziert realisieren – ein entscheidender Vorteil in der frühen Entwicklungsphase, in der es zunächst darum ging, die Machbarkeit des geplanten Systems zu validieren.
+
+Tatsächlich gelang es mithilfe von \texttt{instagrapi}, erste Inhalte erfolgreich automatisiert zu posten. Jedoch wurde schnell deutlich, dass Instagram solche automatisierten Zugriffe über inoffizielle Schnittstellen erkennen kann. Bereits nach wenigen Testläufen wurde der Zugriff als „ungewöhnlich“ eingestuft – mit der Folge, dass sich das verwendete Skript bei jedem Durchlauf erneut einloggen musste. In der Praxis bedeutete das, dass bei jeder Ausführung zusätzliche Authentifizierungsschritte erforderlich waren (z.\,B. PIN-Eingabe via E-Mail), was die Automatisierung erheblich einschränkte.
+
+Um diese Hürde zu umgehen und dennoch erste End-to-End-Tests des Systems unter möglichst realitätsnahen Bedingungen durchführen zu können, wurde eine lokale Konfigurationsdatei auf dem Entwicklerrechner erstellt und eingebunden. Darin wurden gerätespezifische Sitzungsdaten gespeichert, sodass die Anfragen für Instagram so erschienen, als würden sie weiterhin vom ursprünglich autorisierten Endgerät ausgehen. Dieses Vorgehen ermöglichte es, erste vollständige Post-Workflows auszuführen – inklusive GitHub Actions –, ohne bei jeder Ausführung neu authentifizieren zu müssen.
+
+Trotz dieses pragmatischen Ansatzes war stets klar, dass \texttt{instagrapi} nur als temporäre Übergangslösung diente. Die Bibliothek befindet sich in einem rechtlichen Graubereich, da sie nicht offiziell von Meta unterstützt wird, und birgt potenzielle Risiken im Hinblick auf Datenschutz, Sicherheit und Systemstabilität. Sie erfüllte jedoch ihre Funktion als technisches Testinstrument, um frühzeitig das Zusammenspiel der automatisierten Komponenten zu prüfen und das weitere Vorgehen effizient zu planen.
+
+
 \subsection{Videogenerierung}
 
 Ein zentraler Bestandteil unseres Projekts war die Idee, nicht nur Bilder, sondern auch kurze Videos automatisiert zu erzeugen und in die Content-Strategie zu integrieren. Gerade auf Plattformen wie Instagram spielen bewegte Inhalte wie Reels, Storys und Shorts eine große Rolle für die Reichweite und das Engagement der Nutzer. Dementsprechend war das Ziel, mithilfe einer KI neben Bilder auch Videos zu generieren, die zur digitalen Persönlichkeit des Influencers passen. \\\\
@@ -223,5 +330,5 @@ Da es keine passende Open-Source-Lösung zur Videogenerierung mit API-Schnittste
 
 
 \section{Fazit und Zukunftsaussichten}
-
+\section{Arbeitsaufteilung}
 \end{document}
