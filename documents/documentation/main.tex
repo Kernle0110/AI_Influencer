@@ -105,6 +105,8 @@ Um die Anforderungen unseres Projekts, insbesondere die vollautomatisierte Gener
 
 Im Folgenden werden die untersuchten Tools vorgestellt. \\
 
+\subsubsection{Bildgenerierung} \\
+
 \textbf{ChatGPT (mit DALL·E)} \\
 ChatGPT in der kostenpflichtigen Version „ChatGPT Plus“ bietet integrierten Zugriff auf das KI-Bildgenerierungstool DALL·E. Die erzeugten Bilder sind qualitativ hochwertig, und Funktionen wie Inpainting sind bereits implementiert.
 Einschränkend ist jedoch die fehlende API-Zugänglichkeit für Bildgenerierung: DALL·E kann derzeit nur direkt in der ChatGPT-Oberfläche verwendet werden. Eine automatisierte Ansteuerung über Python ist nicht möglich. Zudem ist für den Zugriff eine kostenpflichtige Lizenz erforderlich.
@@ -130,11 +132,38 @@ Viele Modelle auf Hugging Face sind kostenfrei nutzbar, wobei es je nach Nutzung
 \textbf{Fooocus} \\
 Fooocus ist ein Open-Source-Tool zur KI-Bildgenerierung auf Basis von Stable Diffusion. Es zeichnet sich durch eine besonders benutzerfreundliche Oberfläche aus, die komplexe Parameter automatisch im Hintergrund konfiguriert. Die Bildgenerierung erfolgt ausschließlich über Text-Prompts, was die Bedienung stark vereinfacht.
 Darüber hinaus bietet Fooocus Unterstützung für moderne Bildverarbeitungstechnologien wie ControlNet, Inpainting und Upscaling. Die Software kann lokal installiert und betrieben werden, was eine Nutzung ohne laufende Kosten und ohne externe Cloud-Dienste ermöglicht.
+\\
 
+\subsubsection{Textgenerierung}
 
+\textbf{Ollama} \\
+Ollama ist eine Laufzeitumgebung für lokale Large Language Models (LLMs), mit der sich Modelle wie LLaMA 3, Mistral oder Zephyr effizient auf dem eigenen System ausführen lassen. Das Tool bietet eine einfache CLI-Schnittstelle und ist speziell für lokale Automatisierungsszenarien konzipiert. Besonders positiv hervorzuheben ist die Möglichkeit, auf Open-Source-Modelle zuzugreifen, die lokal laufen und keine Verbindung zu externen Cloud-Diensten erfordern.
+\\
+
+\textbf{OpenAI GPT (Playground / API)} \\
+Das GPT-Modell von OpenAI wurde im Rahmen der Recherche aufgrund seiner hervorragenden Textqualität und vielfältigen Anwendungsmöglichkeiten betrachtet. Jedoch setzt die Nutzung eine kostenpflichtige Lizenz sowie den Zugriff über eine API voraus, was den datenschutzfreundlichen und lokalen Betrieb erschwert. Zudem ist der direkte Zugriff über die Benutzeroberfläche (Playground) nicht automatisierbar.
+\\
+
+\textbf{Hugging Face Transformers} \\
+Hugging Face bietet eine große Auswahl an vortrainierten Sprachmodellen, die entweder lokal oder über Cloud-Dienste betrieben werden können. Die Plattform ist offen und gut dokumentiert, allerdings sind viele der Modelle im Vergleich zu aktuellen LLMs wie GPT-4 oder LLaMA 3 weniger leistungsfähig. Die Einrichtung erfordert zudem technisches Vorwissen und zusätzliche Infrastruktur.
+\\
+
+\textbf{Google Gemini (ehemals Bard)} \\
+Google Gemini ist ein KI-gestützter Textgenerator, der über eine benutzerfreundliche Oberfläche im Browser zugänglich ist. Die erzeugten Texte sind kreativ und sprachlich variabel. Da jedoch keine API-Zugänglichkeit vorhanden ist und die Nutzung ausschließlich manuell erfolgen kann, eignet sich das Tool nicht für automatisierte Prozesse.
+
+\clearpage
 
 \section{Auswahl der Technologien}
 \subsection{Python}
+
+Python wurde im Projekt als zentrale Programmiersprache eingesetzt und bildete die technische Grundlage für nahezu alle automatisierten Prozesse. Die Sprache eignet sich besonders gut für die Kombination aus künstlicher Intelligenz, Web-APIs und Automatisierungslogik – drei Kernbereiche, die das Projekt vereinte. Die klare Syntax, die starke Community und die riesige Auswahl an verfügbaren Bibliotheken machen Python zu einem bevorzugten Werkzeug für schnelle Entwicklung und zuverlässige Integration.
+
+Im Projektkontext wurde Python genutzt, um Bild- und Textgenerierungsprozesse zu steuern, lokale KI-Modelle anzusprechen (z.\,B. über die Kommandozeile mit Ollama), Bilddateien zu verwalten, sowie automatisierte Inhalte an Instagram zu übermitteln. Dafür kamen unter anderem Bibliotheken wie \texttt{subprocess} (zur Systemansteuerung), \texttt{os} (Dateioperationen), \texttt{requests} (API-Kommunikation), \texttt{json} (Datenstrukturierung) und \texttt{schedule} (Task-Planung) zum Einsatz.
+
+Ein entscheidender Vorteil lag in der nahtlosen Integration mit \textbf{GitHub Actions}, wodurch sich Python-Skripte zeit- oder ereignisbasiert auf einem Server ausführen ließen – ganz ohne manuelles Eingreifen. So konnten beispielsweise neue Inhalte vollautomatisch generiert und veröffentlicht werden, sobald ein geplanter Posting-Zeitpunkt erreicht war.
+
+Auch komplexere Prozesse wie die Auswahl passender Hashtags, das Einbinden von Variablen in Texttemplates oder der Umgang mit unterschiedlichen Inhaltsformaten ließen sich in Python übersichtlich und modular abbilden. Python ermöglichte es dem Team, technische Flexibilität mit klarer Wartbarkeit zu verbinden – ein wesentlicher Erfolgsfaktor im Hinblick auf die Skalierbarkeit und Wiederverwendbarkeit des Projektcodes.
+
 \subsection{Github}
 \subsection{Ollama}
 \subsection{Fooocus}
