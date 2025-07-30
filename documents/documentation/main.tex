@@ -184,7 +184,7 @@ Für den Projektzeitraum wurde Instagram als Hauptplattform ausgewählt – unte
 
 \subsection{Toolrecherche}
 
-Um die Anforderungen unseres Projekts – insbesondere die vollautomatisierte Generierung realistischer Inhalte für eine digitale Influencer-Persona – bestmöglich umzusetzen, haben wir verschiedene Softwarelösungen recherchiert und bewertet. Dabei lag der Fokus auf Tools, die sich zuverlässig automatisieren lassen, kostenfrei oder zumindest günstig nutzbar sind und konsistente Ergebnisse liefern – sowohl im Bild- als auch im Textbereich.
+Um die Anforderungen unseres Projekts – insbesondere die vollautomatisierte Generierung realistischer Inhalte für eine digitale Influencer-Persona – bestmöglich umzusetzen, haben wir verschiedene Softwarelösungen recherchiert und bewertet. Dabei lag der Fokus auf Tools, die sich zuverlässig automatisieren lassen, kostenfrei oder zumindest günstig nutzbar sind und konsistente Ergebnisse liefern – sowohl im Bild-, Video- als auch im Textbereich.
 
 \textbf{Unsere Hauptkriterien bei der Toolauswahl:}
 \begin{itemize}
@@ -222,6 +222,18 @@ Auch im Textbereich bietet Hugging Face viele vortrainierte Sprachmodelle. Diese
 
 \paragraph{Google Gemini (ehemals Bard)}
 Gemini ist Googles KI-Textgenerator, der über eine benutzerfreundliche Weboberfläche genutzt werden kann. Die Ergebnisse sind sprachlich ansprechend, doch es gibt keine API-Zugänglichkeit. Für automatisierte Workflows ist das Tool daher ungeeignet.
+
+\subsubsection{Videogenerierung}
+
+\paragraph{HeyGen AI}
+Heygen ist ein cloudbasiertes KI-Tool zur automatisierten Generierung von Videoinhalten mit fotorealistischen Avataren. Nutzer*innen können mithilfe von Text-zu-Video-Technologie realistische Sprecher-Videos erstellen, in denen digitale Charaktere (Avatare) auf Basis eingegebener Texte synthetisch sprechen. Besonders für Marketing, Erklärvideos oder Social-Media-Content eignet sich das Tool aufgrund seiner schnellen Ergebnisse und breiten Vorlagenbibliothek.
+
+Heygen bietet eine intuitive Benutzeroberfläche und unterstützt Multisprachen-Synthese mit natürlicher Sprachmelodie. Eine automatisierte Ansteuerung ist derzeit nicht direkt über eine öffentliche API möglich; der Fokus liegt auf einer webbasierten Nutzung. Für einfache Anwendungen reicht ein kostenfreier Account mit limitierten Videominuten. Weiterführende Funktionen, wie längere Videos oder eine höhere Avataranzahl, sind nur in den kostenpflichtigen Versionen verfügbar.
+
+\paragraph{Pika}
+Pika ist ein KI-gestütztes Text-zu-Video-Tool, das sich auf die kreative Generierung kurzer, animierter Videos spezialisiert hat. Die Plattform erlaubt es, aus einem Textprompt oder Bildvorgaben dynamische Clips mit Bewegungen, Kameraeffekten und stilisierten Elementen zu erzeugen. Pika richtet sich primär an kreative Content-Creatorinnen und Designerinnen, die schnell visuelle Konzepte umsetzen möchten.
+
+Die Nutzung erfolgt über eine grafische Weboberfläche. Eine automatisierte Ansteuerung über API ist aktuell nicht öffentlich dokumentiert, wobei der Anbieter regelmäßig neue Funktionen in der Beta-Phase testet. Die generierten Videos sind stark stilisiert und eignen sich insbesondere für experimentellen, visuellen Social-Media-Content. Pika kann in der Basisversion kostenlos genutzt werden, es bestehen jedoch maßgebliche Einschränkungen hinsichtlich Renderzeit, Auflösung und Anzahl der Videos.
 
 \clearpage
 
@@ -261,9 +273,14 @@ Im Gesamtprojekt spielte Ollama damit eine Schlüsselrolle in der textuellen Con
 \subsection{Fooocus}
 
 Nach der Analyse verschiedener KI-gestützter Bildgenerierungstools fiel die finale Wahl auf Fooocus. Das Open-Source-Tool erfüllte sämtliche Anforderungen unseres Projektes in Bezug auf Bildqualität, Konsistenz, Kostenfreiheit, Automatisierbarkeit und lokale Nutzbarkeit.
+
 Fooocus basiert auf dem Modell Stable Diffusion und verfolgt einen benutzerfreundlichen Ansatz. Statt komplexer technischer Einstellungen konzentriert sich die Nutzung auf die Eingabe eines Prompts, also einer textuellen Beschreibung des gewünschten Bildinhalts. Alle weiteren Parameter wie Stil, Sampler, Bildgröße oder Upscaling werden im Hintergrund automatisch optimiert. Dies erleichtert nicht nur den Einstieg, sondern ermöglicht auch eine schnelle und konsistente Generierung hochwertiger Bilder. \\\\
 Ein besonderer Vorteil von Fooocus im Kontext unseres Projekts ist die Fähigkeit, stilistisch einheitliche und visuell konsistente Bildserien zu erzeugen. Für die digitale Persona war es entscheidend, dass das Gesicht über viele Beiträge hinweg wiedererkennbar bleibt. Fooocus unterstützt hierfür moderne Technologien wie ControlNet, Inpainting und VAE-Optimierungen, mit denen sich gezielt Details im Bild verändern lassen, ohne das Gesamtbild zu verfälschen.
-Durch die Open-Source-Lizenz bietet Fooocus volle Kontrolle über die Software sowie eine lokale Ausführbarkeit ohne laufende Kosten. Dies ermöglichte eine flexible Integration in bestehende Workflows und bildete eine solide Grundlage für die spätere Automatisierung des Bildgenerierungsprozesses.
+
+Durch die Open-Source-Lizenz bietet Fooocus volle Kontrolle über die Software sowie eine lokale Ausführbarkeit ohne laufende Kosten. Dies ermöglichte eine flexible Integration in bestehende Workflows und bildete eine solide Grundlage für die spätere Automatisierung des Bildgenerierungsprozesses. 
+
+Fooocus kann sowohl über eine grafische Weboberfläche lokal im Browser bedient werden als auch über eine lokal gehostete API-Schnittstelle angesprochen werden. Für die finale Umsetzung der automatisierten Bildgenerierung wurde die API-Variante eingesetzt, da sie eine direkte Ansteuerung über Python ermöglichte und sich nahtlos in den bestehenden Automatisierungsworkflow integrieren ließ.
+
 
 \subsection{Meta Graph API}
 
@@ -277,6 +294,8 @@ Die Meta Graph API ermöglichte es, den gesamten Veröffentlichungsprozess volls
 \section{KI Influencer Persona}
 
 Im Rahmen unseres KI-Influencer-Projekts fiel die Entscheidung bewusst auf die Konzeption eines digitalen Mentors, der sich durch Tiefe, Klarheit und eine inspirierende Ausstrahlung von der Masse abheben soll. Während viele virtuelle Influencer stark auf Ästhetik oder Mode fokussiert sind, war es unser Ziel, eine Figur mit inhaltlicher Tiefe und echtem Mehrwert zu schaffen – einen Charakter, der wie ein mentaler Coach oder Berater in digitalen Zeiten agiert.
+
+\subsection*{Elias Lev – Der digitale Mentor}
 
 So entstand \textbf{Elias Lev}, ein KI-generierter Influencer im Alter von 31 Jahren. Sein Auftreten ist geprägt von einem \textit{urban-clean Look}, einer ruhigen, leicht stoischen Ausstrahlung und einer tech-affinen Note. Seine Sprache ist klar, direkt und inspirierend – ohne in Motivationsfloskeln zu verfallen. Elias soll vor allem Menschen zwischen \textbf{20 und 35 Jahren} ansprechen, die sich für \textit{Selbstoptimierung, mentale Klarheit, emotionale Intelligenz und die Zukunft von KI im Alltag} interessieren.
 
@@ -293,10 +312,36 @@ Sein Erscheinungsbild ist bewusst \textit{strukturiert und leicht distanziert}, 
 Um Elias visuell zu erschaffen, haben wir mithilfe von \textbf{Fooocus} ein erstes Bild generiert. Dabei nutzten wir gezielt einen Prompt, der sowohl die optischen Merkmale als auch die Atmosphäre seiner Rolle widerspiegelt:
 
 \begin{quote}
-\textit{"A calm and thoughtful young man, short dark hair, slight stubble, wearing a dark turtleneck and smart casual jacket, sitting by a window with a minimalist urban skyline in the background, hands folded, looking directly at the camera, neutral tones, futuristic mentor vibe, soft shadows and modern lighting."}
+\textit{A calm and thoughtful young man, short dark hair, slight stubble, wearing a dark turtleneck and smart casual jacket, sitting by a window with a minimalist urban skyline in the background, hands folded, looking directly at the camera, neutral tones, futuristic mentor vibe, soft shadows and modern lighting."}
 \end{quote}
 
 Dieses Bild diente als Grundlage für die erste visuelle Iteration von Elias und spiegelt seine Funktion als \textbf{zukünftiger Mentor in einer KI-geprägten Welt} wider.
+
+\subsection*{Maya Elenor – Die reflektierende Mentorin}
+
+Parallel zu Elias entwickelten wir eine weibliche Alternative: \textbf{Maya Elenor}, 29 Jahre alt. Ihr Stil vereint minimalistisches Design mit einem modernen Boho-Touch und einer spirituell angehauchten Ästhetik. Maya strahlt durch ihre warme, empathische und leicht philosophische Tonalität eine einladende Ruhe aus.
+
+Ihre Zielgruppe sind vorwiegend Menschen im Alter von \textbf{18 bis 30 Jahren}, unabhängig vom Geschlecht, die sich für \textit{Selbstentwicklung, Achtsamkeit und moderne Lebensratgeber} interessieren.
+
+Typische Inhalte ihrer Persona umfassen:
+
+\begin{itemize}
+    \item Kurze Videos mit Alltagsweisheiten („Was ich gerne mit 20 gewusst hätte…“)
+    \item Ästhetisch ruhige Bilder mit Text-Overlays
+    \item Zitate in Kombination mit geführten Reflexionsfragen
+    \item Community-Engagement durch Fragen wie: „Was war deine größte Lektion in der letzten Woche?“
+\end{itemize}
+
+Maya nutzt eine ruhige Stimme und bietet „Mini-Coachings“ über DMs, ergänzt durch ein stimmiges visuelles Branding mit sanften Farben und Lichtverhältnissen.
+
+Auch ihre visuelle Identität wurde über einen gezielten Prompt mit Fooocus generiert:
+
+\begin{quote}
+\textit{A young woman with soft, calm facial features, long wavy dark-blonde hair, wearing minimalist pastel-toned clothing, sitting cross-legged on a cozy modern couch with indoor plants around, soft sunlight, looking slightly to the side as if in deep thought."}
+\end{quote}
+
+Obwohl wir am Ende Elias als Hauptfigur auswählten, diente Maya als wichtige Referenz in der gestalterischen und inhaltlichen Konzeptionsphase.
+
 
 \section{Automatisierung}
 
@@ -327,6 +372,49 @@ Das zentrale Skript \texttt{generate\_content.py} steuert die gesamte Generierun
 \end{enumerate}
 
 \subsection{Bildgenerierung}
+
+Die automatisierte Bildgenerierung stellte einen weiteren zentralen Baustein im Gesamtworkflow dar. Ziel war es, für jedes generierte Zitat ein hochwertiges, konsistentes Bild zu erstellen, das sowohl visuell ansprechend ist als auch die digitale Identität der Persona transportiert. Zur Umsetzung wurde das Open-Source-Tool \textbf{Fooocus} eingesetzt, das lokal auf einer dedizierten Maschine betrieben wurde.
+
+\subsubsection*{Infrastruktur und Einrichtung}
+
+Zur Durchführung der Bildgenerierung wurde zunächst bei der Hochschule eine virtuelle Linux-Maschine beantragt. Nach Zuweisung der VM erfolgte deren Konfiguration, bei der insbesondere folgende Schritte relevant waren:
+
+\begin{itemize}
+    \item \textbf{Installation von Fooocus:} Das GitHub-Repository wurde geklont und Fooocus samt seiner Abhängigkeiten eingerichtet.
+    \item \textbf{API-Modus aktivieren:} Fooocus bietet neben einer grafischen Weboberfläche auch eine REST-API. Letztere wurde für die Automatisierung verwendet.
+    \item \textbf{SSH-Zugang und Dateiverwaltung:} Es wurden SSH-Schlüssel eingerichtet, um den späteren automatisierten Upload der generierten Bilder auf das GitHub-Repository zu ermöglichen.
+\end{itemize}
+
+\subsubsection*{Ablauf der Bildgenerierung}
+
+Die zentrale Bildgenerierung erfolgte über das Skript \texttt{image-static-prompt-v2.py}. Dieses wurde über einen täglichen Cronjob automatisiert ausgeführt. Der Ablauf dieses Skripts gestaltet sich wie folgt:
+
+\begin{enumerate}
+    \item \textbf{Nächste Zitatnummer ermitteln:} Im Ordner \texttt{images\_to\_post} wird geprüft, welches Bild zuletzt erstellt wurde. Die nächste freie Nummer wird bestimmt (z.\,B. \texttt{042.png}).
+    
+    \item \textbf{Einlesen der Daten:} Aus der Datei \texttt{zitate.csv} wird die Zeile mit der passenden Zitatnummer geladen. Diese enthält das Zitat sowie die dazugehörigen Schlagwörter.
+
+    \item \textbf{Prompt-Konstruktion:} Basierend auf einem statischen Basisprompt (\textit{„a cinematic portrait of a thoughtful man…“}) und den Schlagwörtern wird ein vollständiger Prompt gebildet.
+
+    \item \textbf{FaceSwap-Integration:} Zur Sicherstellung einer konsistenten visuellen Identität kommt die Funktion \texttt{FaceSwap} von Fooocus zum Einsatz. Dafür wird ein Base64-kodiertes Bild des Gesichts der Persona mitgesendet, das als visuelle Referenz dient.
+
+    \item \textbf{API-Anfrage:} Der vollständige Prompt sowie weitere Parameter (z.\,B. Stiloptionen, Sampler, Bildgröße etc.) werden in einem JSON-Objekt über die REST-Schnittstelle \texttt{/v2/generation/image-prompt} an die Fooocus-API übermittelt. Die Bildgenerierung erfolgt anschließend serverseitig.
+\end{enumerate}
+
+Die Bilder werden automatisch im täglichen Ausgabeordner von Fooocus gespeichert.
+
+\subsubsection*{Bildübertragung und Versionierung}
+
+Das Skript \texttt{upload\_to\_github.py} übernimmt nach erfolgreicher Bildgenerierung die Übertragung der neuen Bilder in das Projekt-Repository:
+
+\begin{itemize}
+    \item \textbf{Bild kopieren und umbenennen:} Die generierten Bilder (z.\,B. \texttt{042-0.png}) werden in den Ordner \texttt{images\_to\_post} kopiert und dabei standardisiert umbenannt (\texttt{042.png}).
+    
+    \item \textbf{GitHub-Push:} Das Bild wird mit einem automatisierten Commit ins Repository übertragen. Damit steht es auch für die spätere Veröffentlichung zur Verfügung.
+\end{itemize}
+
+Die Kombination aus lokalem Betrieb, täglicher Automatisierung und API-Nutzung ermöglichte eine vollständig selbstverwaltete Bildpipeline. Fooocus erwies sich als besonders geeignetes Werkzeug, da es sowohl über eine intuitive Weboberfläche als auch über eine leistungsfähige REST-API verfügt. Für die finale Automatisierung wurde ausschließlich die API verwendet, um die Bilder direkt aus Python heraus zu generieren und weiterzuverarbeiten. Die Einbindung von FaceSwap ermöglichte eine stringente visuelle Markenidentität über alle Posts hinweg.
+
 
 \subsection{Automatisches Posten}
 
@@ -597,6 +685,38 @@ Auch Versuche, über Umwege (z.B. durch Kombination einzelner Open-Source-Kompon
 
 Da es keine passende Open-Source-Lösung zur Videogenerierung mit API-Schnittstelle gab, musste dieses Feature im Projektverlauf verworfen werden. Stattdessen konzentrierten wir uns auf die Erstellung von Bildinhalten, welche ebenfalls einen großen Einfluss auf Reichweite und Community-Aufbau hat. Trotz dieser Einschränkung konnten wir wichtige Erfahrungen im Bereich KI-Recherche, API-Integration und Tool-Auswahl sammeln.
 
+\subsection{Bildgenerierung}
+
+Ein zentrales Element des Projekts war die automatisierte Bildgenerierung, die jedoch im praktischen Betrieb mit verschiedenen Herausforderungen verbunden war. Diese ließen sich in zwei Hauptbereiche unterteilen: die Nutzung der Software \textbf{Fooocus} und der Betrieb auf einer \textbf{virtuellen GPU-basierten Maschine (VM)} der Hochschule.
+
+\subsubsection*{Fooocus: Technische Limitierungen und API-Komplexität}
+
+Obwohl Fooocus eine benutzerfreundliche Oberfläche für die manuelle Bildgenerierung bietet, gestaltete sich die Nutzung der API für automatisierte Prozesse als unerwartet komplex. Besonders herausfordernd war die fehlende Dokumentation für die API-Endpunkte, insbesondere \texttt{/v2/generation/image-prompt}. Zwar war die grafische Oberfläche intuitiv gestaltet, doch enthielt sie kaum Hinweise darauf, wie JSON-Payloads korrekt zu strukturieren sind.
+
+Ein wiederkehrendes Problem war das Auftreten von \textbf{Validierungsfehlern} beim API-Request. Diese resultierten meist aus unklar definierten Feldern im Zusammenhang mit der Nutzung von \texttt{FaceSwap} – einer essenziellen Funktion im Projekt zur Sicherstellung der visuellen Konsistenz der digitalen Persona. Erst durch wiederholtes Trial-and-Error und die manuelle Analyse von Netzwerkverkehr der Weboberfläche konnte ein funktionierendes JSON-Format für diesen spezifischen Anwendungsfall entwickelt werden.
+
+Darüber hinaus zeigte sich ein generelles Problem der Bild-KI: \textbf{fehlende semantische Kontrolle}. Die durch Fooocus generierten Bilder waren zwar meist visuell ansprechend, wiesen jedoch gelegentlich anatomische Fehler auf – z.\,B. Hände mit nur vier Fingern oder unrealistische Kopfgrößen. Eine automatische Prüfung auf solche Inkonsistenzen war nicht praktikabel. Daher wurde bewusst das Risiko in Kauf genommen, dass vereinzelt fehlerhafte Bilder veröffentlicht werden. Diese Entscheidung war notwendig, um eine vollautomatisierte Generierung zu ermöglichen.
+
+\subsubsection*{Virtuelle Maschine: Instabilität und Wartungsaufwand}
+
+Der technische Betrieb der Bildgenerierung erfolgte auf einer virtuellen Linux-Maschine mit GPU-Unterstützung, die über die IT-Infrastruktur der Hochschule bereitgestellt wurde. Auch hier traten im Laufe des Projekts verschiedene Herausforderungen auf:
+
+\paragraph{Verfügbarkeitsprobleme:}
+Die VM wurde mehrfach ohne Vorwarnung heruntergefahren – etwa aufgrund von \textbf{Host-Wartungsarbeiten} oder \textbf{Ressourcenengpässen} seitens der Hochschule. Nach solchen Ausfällen war stets ein manueller Neustart notwendig, sowohl der Maschine selbst als auch der lokal laufenden Fooocus-Instanz. Dies erschwerte die geplante Automatisierung erheblich und erforderte regelmäßige manuelle Überprüfungen.
+
+\paragraph{GPU-Kompatibilität:}
+Fooocus ist stark abhängig von der verwendeten GPU-Architektur und den korrekten Versionen von \texttt{CUDA} sowie den NVIDIA-Treibern. Im Projektverlauf kam es wiederholt zu \textbf{Kompatibilitätsproblemen}, insbesondere nach Updates des Betriebssystems oder bei Änderungen der VM-Konfiguration. In mehreren Fällen erkannte Fooocus die GPU nicht mehr, da die \texttt{CUDA}-Version nicht mit der in Fooocus eingebetteten PyTorch-Version kompatibel war.
+
+\paragraph{Manuelle Wartung:}
+Um den Betrieb aufrechtzuerhalten, mussten in unregelmäßigen Abständen \textbf{Treiber manuell aktualisiert}, Umgebungsvariablen angepasst und Fooocus neu konfiguriert werden. Diese Eingriffe erforderten nicht nur technisches Know-how, sondern verzögerten teils auch den täglichen Generierungsprozess.
+
+\subsubsection*{Abwägung zwischen Automatisierung und Kontrolle}
+
+In der Kombination aus den genannten Herausforderungen wurde deutlich, dass die vollständige Automatisierung der Bildgenerierung stets mit einem gewissen Kontrollverlust einhergeht – sei es im Hinblick auf Bildqualität oder Systemstabilität. Eine alternative Lösung, etwa durch cloudbasierte Dienste oder kostenpflichtige APIs, hätte viele dieser Probleme umgehen können, widersprach jedoch den Projektvorgaben (Open-Source, lokal, kostenlos).
+
+Die Entscheidung, mit Fooocus auf einer instabilen, aber kostenlosen Infrastruktur zu arbeiten, ermöglichte zwar die Umsetzung einer weitgehend automatisierten Pipeline, erforderte jedoch ein hohes Maß an Flexibilität, Fehlertoleranz und technischem Troubleshooting. Gleichzeitig bot sie die Chance, tiefergehende praktische Erfahrungen im Bereich GPU-gestützter KI-Workflows, API-Kommunikation und Infrastrukturmanagement zu sammeln – ein Erfahrungswert, der weit über das eigentliche Projektziel hinausgeht.
+
+
 
 \section{Tag der Informatik}
 
@@ -700,13 +820,14 @@ Die folgende Übersicht zeigt die jeweiligen Verantwortungsbereiche der einzelne
     \item Erstellung der Persona Elias Lev inklusive Steckbrief und Charakter
     \item Prompt-Erstellung und technische Umsetzung der Bildgenerierung (sowohl händisch als auch per API: \texttt{fooocus\_image\_generation\_scripts})
     \item Aufbau einer eigenen Infrastruktur (Organisation und Verwaltung einer Hochschul-VM)
-    \item Dokumentation: Deckblatt, Einleitung, KI Influencer Persona, Automatisierung (Bildgenerierung)
+    \item Dokumentation: Deckblatt, Einleitung, Toolrecherche, KI Influencer Persona, Automatisierung (Bildgenerierung), Herausforderungen (Bildgenerierung)
 \end{itemize}
 
 \subsubsection*{Bünyamin}
 
 \begin{itemize}
     \item Recherche zu KI-gestützter Videogenerierung
+    \item Toolrecherche zu KI-gestützter Bildgenierung (Fooocus)
     \item Dokumentation: Marktanalyse, Toolrecherche, Technologieauswahl (Fooocus), Herausforderungen (Videogenerierung)
 \end{itemize}
 
