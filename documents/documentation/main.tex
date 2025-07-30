@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage[a4paper, left=3cm, right=2.5cm, top=3cm, bottom=3cm]{geometry}
 \usepackage{setspace}
-\onehalfspacing    % 1,5-facher Zeilenabstand
+\onehalfspacing                % 1,5-facher Zeilenabstand
 \setlength{\parindent}{0pt}    % Kein Einzug bei neuen Absätzen
 \setlength{\parskip}{0.8em}    % Abstand zwischen Absätzen
 \usepackage{parskip}
@@ -298,7 +298,6 @@ Um Elias visuell zu erschaffen, haben wir mithilfe von \textbf{Fooocus} ein erst
 
 Dieses Bild diente als Grundlage für die erste visuelle Iteration von Elias und spiegelt seine Funktion als \textbf{zukünftiger Mentor in einer KI-geprägten Welt} wider.
 
-
 \section{Automatisierung}
 
 Ziel dieses Teilbereichs war es, möglichst viele der regelmäßig anfallenden Aufgaben vollständig zu automatisieren. Dazu zählen unter anderem die Generierung von Text- und Bildinhalten, das Formatieren und Posten der Beiträge auf Instagram sowie die strukturierte Archivierung aller veröffentlichten Inhalte. Die folgenden Abschnitte beschreiben die einzelnen Bestandteile dieser Automatisierung im Detail.
@@ -319,9 +318,9 @@ Das zentrale Skript \texttt{generate\_content.py} steuert die gesamte Generierun
     \item \textbf{Initialer Prompt:} Ein speziell formulierter Prompt wird an das Modell gesendet, um ein tiefgründiges deutsches Lebenszitat zu erzeugen, ergänzt durch 1–3 Schlagwörter. Dabei wird das Modell zur Ausgabe in einem klaren Format aufgefordert: \\
     \texttt{Zitat (Zeilenumbruch)} \\
     \texttt{Stichwort1, Stichwort2, Stichwort3}
-    
+
     \item \textbf{Verfeinerung in mehreren Stufen:} Die erhaltene Rohantwort wird anschließend in zwei weiteren Schritten stilistisch überarbeitet und formal bereinigt. Jeder Schritt nutzt erneut das LLM zur Umformulierung bei kontrollierter Temperatur.
-    
+
     \item \textbf{Strukturierung und Speicherung:} Nach der finalen Verarbeitung wird das Zitat samt Schlagwörtern in der Datei \texttt{zitate.csv} gespeichert. Die Datei enthält eine fortlaufende Nummerierung zur eindeutigen Identifikation der Einträge. Der Aufbau folgt dem Schema: \\
     \texttt{nr, zitat, schlagworte} \\
     \texttt{001, Manchmal beginnt ein neuer Weg mit einem einzigen Gedanken., Neuanfang,Entscheidung,Perspektive}
@@ -339,21 +338,21 @@ Das Skript übernimmt mehrere Schritte in fest definierter Reihenfolge:
 
 \begin{enumerate}
     \item \textbf{Bildauswahl:} Aus einem definierten Ordner (\texttt{images\_to\_post}) wird automatisch das erste verfügbare Bild (nach Dateinamen sortiert) ausgewählt.
-    
+
     \item \textbf{Laden von Zitat und Schlagwörtern:} Passend zum Bildnamen (z.\,B. \texttt{003.jpg}) wird in der Datei \texttt{zitate.csv} das entsprechende Zitat samt Schlagwörtern geladen.
-    
+
     \item \textbf{Gestaltung des Bildes:} Das Zitat wird typografisch auf dem Bild platziert, inklusive halbtransparenter Textbox zur besseren Lesbarkeit. Die Textzeilen werden dabei automatisch umgebrochen, zentriert und optisch ansprechend dargestellt. Die fertige Version wird als \texttt{bild\_caption.jpg} gespeichert.
-    
+
     \item \textbf{Git-Commit für RAW-URL:} Da die Instagram Graph API eine öffentliche URL für das Bild benötigt, wird das neue Bild automatisch in das GitHub-Repository gepusht, um über \texttt{raw.githubusercontent.com} verfügbar zu sein.
-    
+
     \item \textbf{Erzeugung der Caption:} Die Caption besteht aus dem Zitat selbst sowie einer Hashtag-Zeile. Die verwendeten Schlagwörter werden zu Hashtags umgewandelt und mit einem vordefinierten Hashtag-Block ergänzt.
-    
+
     \item \textbf{Posten via Meta Graph API:} Die Bild-URL und Caption werden an die Meta-API übermittelt. Der Upload erfolgt in zwei Schritten:
     \begin{itemize}
         \item Container-Erstellung mit Bild und Text
         \item Veröffentlichung über die erhaltene Container-ID
     \end{itemize}
-    
+
     \item \textbf{Archivierung:} Nach erfolgreichem Upload wird das gepostete Bild in einen Archivordner (\texttt{archive\_images}) verschoben, um doppelte Veröffentlichungen zu vermeiden.
 \end{enumerate}
 
@@ -420,13 +419,13 @@ Statt Likes oder Direktnachrichten wurde ein automatisiertes Reaktionssystem fü
 
 \begin{enumerate}
     \item \textbf{Beiträge abrufen:} Über den \texttt{/media}-Endpunkt der Instagram Graph API werden alle eigenen Beiträge gesammelt.
-    
+
     \item \textbf{Kommentare abfragen:} Zu jedem Beitrag werden alle öffentlichen Kommentare geladen.
-    
+
     \item \textbf{Antwort-Check:} Für jeden Kommentar wird geprüft, ob bereits eine Antwort vom eigenen Account existiert (\texttt{has\_replied()}).
-    
+
     \item \textbf{Antwort generieren:} Falls keine Antwort vorhanden ist, wird per \texttt{zufällige\_antwort()} ein zufälliger Text aus einer Liste mit Dankesnachrichten ausgewählt.
-    
+
     \item \textbf{Antwort senden:} Die generierte Antwort wird über den \texttt{/replies}-Endpunkt als öffentlicher Kommentar unter dem ursprünglichen Kommentar gepostet.
 \end{enumerate}
 
@@ -454,7 +453,7 @@ Zur strategischen Auswertung der Instagram-Reichweite wurde eine automatisierte 
 
 Die Analyse basiert auf API-Endpunkten aus der \texttt{insights}-Kategorie der Instagram Graph API sowie Medienabfragen über eindeutige \texttt{/media}-Ressourcen. Die Authentifizierung erfolgt dabei über ein Business- oder Creator-Konto mit gültigem Zugriffstoken, verwaltet als GitHub Secret.
 
-Es ist jedoch wichtig zu beachten, dass Instagram Insights nur mit $ \geq 100 $ Followern demografische Daten (Alter, Geschlecht, Herkunft, Online-Aktivität) bereitstellt und dass bestimmte Metriken nur eingeschränkt verfügbar sind.
+Es ist jedoch wichtig zu beachten, dass Instagram Insights nur mit $ \geq 250 $ Followern demografische Daten (Alter, Geschlecht, Herkunft, Online-Aktivität) bereitstellt und dass bestimmte Metriken nur eingeschränkt verfügbar sind.
 
 Weitere Einschränkungen:
 \begin{itemize}
@@ -474,7 +473,7 @@ Die Metrik \texttt{online\_followers} zeigt, zu welcher Stunde des Tages die Fol
 
 \subsubsection*{Demografien (Alter \& Geschlecht)}
 
-Über \texttt{engaged\_audience\_demographics} mit \texttt{breakdown=age} bzw. \texttt{breakdown=gender} werden die prozentualen Verteilungen interaktiver Followergruppen abgefragt. Die Daten werden jeweils in separaten Balkendiagrammen ausgegeben und ermöglichen Rückschlüsse auf inhaltliche Zielgruppen.
+Über \texttt{engaged\_audience\_demographics} mit \texttt{breakdown=age} bzw. \texttt{breakdown=gender} werden die prozentualen Verteilungen interaktiver Followergruppen abgefragt. Die Daten werden jeweils in separaten Balkendiagrammen ausgegeben und ermöglichen Rückschlüsse auf inhaltliche Zielgruppen, vorausgesetzt, die mindest Anzahl an aktiven Followern ist erfüllt.
 
 \subsubsection*{Engagement-Trends je Post}
 
@@ -485,12 +484,10 @@ Mittels eines erweiterten Medienaufrufs mit eingebetteten Insights (Metriken: \t
 Trotz des funktionierenden Workflows gab es einige systembedingte Einschränkungen, die durch die Instagram Graph API vorgegeben sind:
 
 \begin{itemize}
-    \item Bei unter 100 Followern stellt die API keine demografischen Metriken (Alter, Geschlecht, Herkunft) oder Online-Aktivitätsdaten zur Verfügung. Dies begrenzt die Aussagekraft in frühen Projektphasen.
-    
-    \item Die Metrik \texttt{follower\_count} bezeichnet lediglich den täglichen Zuwachs, nicht die Gesamtanzahl an Followern. Eine kontinuierliche Historie lässt sich damit nicht direkt abbilden.
-    
+    \item Bei unter 250 Followern stellt die API keine demografischen Metriken (Alter, Geschlecht, Herkunft) oder Online-Aktivitätsdaten zur Verfügung. Dies begrenzt die Aussagekraft in frühen Projektphasen.
+
     \item Historische Follower-Daten (z.\,B. Entwicklung über Wochen) lassen sich über die API nicht rekonstruieren, da Lifetime-Daten nur punktuell abrufbar sind.
-    
+
     \item Die Insights-Daten sind mit einer Zeitverzögerung von bis zu 48 Stunden verfügbar und unterliegen API-spezifischen Rate Limits.
 \end{itemize}
 
@@ -500,18 +497,18 @@ Trotz der genannten Einschränkungen ermöglichte der entwickelte Analyseansatz 
 
 \begin{itemize}
     \item Die automatisierte Datenerfassung spart Zeit und reduziert manuelle Auswertungsschritte.
-    
+
     \item Die gesamte Analyse erfolgt lokal in Python unter Verwendung etablierter Libraries wie \texttt{pandas}, \texttt{matplotlib} und \texttt{seaborn} – datenschutzkonform und transparent.
-    
+
     \item Bereits bei kleinen Reichweiten lassen sich über die verfügbaren Metriken (z.\,B. Likes, Kommentare, Reach) erste Optimierungen im Content und in der Postingzeit ableiten.
 \end{itemize}
 
 
 \subsection{Visualisierung}
 
-Das finale Analyse-Skript besteht aus modular aufgebauten Funktionen, darunter \texttt{get\_followers\_country()}, \texttt{get\_active\_times()}, \texttt{get\_demographics()}, \texttt{get\_engagement()} sowie einer zentralen \texttt{main()}-Funktion zur Orchestrierung aller Auswertungen.  
+Das finale Analyse-Skript besteht aus modular aufgebauten Funktionen, darunter \texttt{get\_followers\_country()}, \texttt{get\_active\_times()}, \texttt{get\_demographics()}, \texttt{get\_engagement()} sowie einer zentralen \texttt{main()}-Funktion zur Orchestrierung aller Auswertungen.
 
-Jede dieser Funktionen ruft gezielt Daten über die Instagram Graph API ab, wandelt sie in strukturierte \texttt{pandas}-DataFrames um und erstellt darauf basierende Visualisierungen mit \texttt{matplotlib} und \texttt{seaborn}.  
+Jede dieser Funktionen ruft gezielt Daten über die Instagram Graph API ab, wandelt sie in strukturierte \texttt{pandas}-DataFrames um und erstellt darauf basierende Visualisierungen mit \texttt{matplotlib} und \texttt{seaborn}.
 
 Die erzeugten Diagramme (z.\,B. Balkendiagramme für Follower-Herkunft und Demografie oder Liniendiagramme für Engagement-Trends) ermöglichen eine direkte Interpretation der zugrundeliegenden Metriken. Sie sind sowohl interaktiv darstellbar als auch zur Weiterverarbeitung exportierbar – etwa für Präsentationen oder die Einbindung in ein Monitoring-Dashboard.
 
@@ -523,7 +520,7 @@ Die automatisierte Verbindung von Datenabruf, Verarbeitung und Visualisierung er
 
 In Deutschland gilt eine besonders strenge Auslegung der EU-DSGVO, die klar regelt, wie personenbezogene Daten verarbeitet werden dürfen. Gerade im Kontext automatisierter Interaktion war dies eine zentrale Herausforderung im Projektverlauf.
 
-\subsubsection*{Direktnachrichten}  
+\subsubsection*{Direktnachrichten}
 Die automatisierte Beantwortung von Direct Messages wäre technisch über die Instagram Messaging API prinzipiell möglich – insbesondere im Rahmen der sogenannten 24-Stunden-Regel, bei der Unternehmen auf nutzerinitiierte Nachrichten automatisiert antworten dürfen. In der Praxis stellte sich dies jedoch als datenschutzrechtlich problematisch heraus: Um inhaltlich sinnvoll zu reagieren, müsste der empfangene Nachrichtentext an ein Sprachmodell (LLM) weitergeleitet werden. Dies gilt laut DSGVO als Verarbeitung besonders sensibler personenbezogener Daten und wäre nur mit ausdrücklicher, schriftlicher Einwilligung der Nutzer:innen zulässig.
 
 Da eine solche Einwilligung weder systemseitig abgefragt noch über Drittanbietertools wie ReplyRush zuverlässig umgesetzt werden kann, wurde auf diese Option bewusst verzichtet. Damit blieb das Projekt vollständig DSGVO-konform und frei von juristischen Risiken, auch wenn dies auf Kosten möglicher Funktionalität ging.
@@ -580,11 +577,11 @@ Der Zugang zur offiziellen Instagram Graph API erfordert eine Vielzahl von Schri
 \paragraph{Praktische Herausforderungen im Projekt:}
 \begin{itemize}
     \item \textbf{Keine formelle Unternehmensstruktur:} Da es sich um ein Hochschulprojekt handelte, war keine Business-Registrierung im klassischen Sinne möglich. Die Meta-Plattform verlangt jedoch u.\,a. Gewerbenachweis, Unternehmensadresse und offizielle Telefonnummer. Dadurch wurde uns der Zugriff zur API vorerst vollständig verwehrt.
-    
+
     \item \textbf{App Review mehrfach abgelehnt:} Unser Anwendungsfall (automatisiertes Posten zu Studienzwecken) wurde von Meta zunächst nicht als „valid use case“ gewertet. Erst nach Kontaktaufnahme mit dem Meta-Support konnte ein eingeschränkter Zugang ermöglicht werden.
-    
+
     \item \textbf{Lange Wartezeiten und schrittweise Freischaltungen:} Einige Features der API wurden erst nach mehrtägiger Wartezeit freigeschaltet, obwohl die vorherigen Schritte bereits abgeschlossen waren. Teilweise mussten Berechtigungen erneut angefordert werden.
-    
+
     \item \textbf{Komplexe Rechteverwaltung:} Es war nicht immer transparent, welche Berechtigung zu welchem Funktionsaufruf erforderlich ist. Insbesondere die Unterscheidung zwischen Seiten-Token, Nutzer-Token und App-Token war anfangs verwirrend.
 \end{itemize}
 
@@ -614,10 +611,16 @@ Unser Stand bestand aus:
 \begin{itemize}
     \item einer \textbf{Pinnwand} mit der Überschrift \texttt{Digital Influencer} und einem großformatigen Bild der Persona Elias Lev als visueller Einstieg
     \item einem \textbf{Monitor}, auf dem Besucher:innen eigenständig durch unseren Instagram-Account navigieren und sich ein Bild von den geposteten Inhalten machen konnten
-    \item einem zweiten \textbf{interaktiven Bildschirm}, auf dem eine speziell für diesen Tag entwickelte Anwendung lief: Die Besucher:innen konnten ein eigenes Zitat sowie passende Hashtags eingeben. Daraus wurde live ein vollständiger Social-Media-Post generiert und über die Meta Graph API direkt auf dem Elias-Account veröffentlicht
+    \item einem zweiten \textbf{interaktiven Bildschirm}, auf dem eine speziell für diesen Tag entwickelte Anwendung lief: Die Besucher:innen konnten ein eigenes Zitat mit passenden Hashtags eingeben. Daraus wurde live ein Post generiert und über die Meta Graph API direkt veröffentlicht
 \end{itemize}
 
 Besonders dieser interaktive Teil ermöglichte es den Gästen, das Projekt nicht nur passiv zu betrachten, sondern direkt auszuprobieren und zu erleben. Die Anwendung funktionierte dabei durchgängig stabil – im Gegensatz zu vielen anderen Gruppen, bei denen interaktive Elemente vor Ort teilweise nicht funktionierten.
+
+\begin{figure}[h] % [h] = hier einfügen (approx.)
+  \centering
+  \includegraphics[width=0.98\textwidth]{images/220250704_110638.jpg}
+\end{figure}
+
 
 \subsection{Auszeichnung durch M\&M Software}
 
@@ -632,6 +635,11 @@ In der Begründung hob die Jury hervor:
 \end{itemize}
 
 Die Auszeichnung war für uns ein besonders motivierender Abschluss des Projekts und bestätigte den hohen Anspruch, den wir uns in der Konzeption, Umsetzung und Präsentation gesetzt hatten.
+
+\begin{figure}[h] % [h] = hier einfügen (approx.)
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/Untitled-1.png}
+\end{figure}
 
 \section{Fazit und Zukunftsaussichten}
 
@@ -655,7 +663,7 @@ Das aktuelle System bietet eine stabile Grundlage für zahlreiche Erweiterungen,
 
 \subsection{Lerngewinn für das Team}
 
-Neben den fachlichen Kompetenzen im Bereich KI, API-Nutzung und Automatisierung war das Projekt vor allem auch eine wertvolle Erfahrung in puncto Teamorganisation, Problemlösung unter realen Einschränkungen und zielgruppengerechter Kommunikation. 
+Neben den fachlichen Kompetenzen im Bereich KI, API-Nutzung und Automatisierung war das Projekt vor allem auch eine wertvolle Erfahrung in puncto Teamorganisation, Problemlösung unter realen Einschränkungen und zielgruppengerechter Kommunikation.
 
 Dass trotz Limitierungen (z.\,B. kein Business-Status, eingeschränkter API-Zugang, Datenschutzauflagen) ein stimmiges und praxistaugliches Gesamtkonzept entstanden ist, spricht für die Qualität der Planung und Umsetzung. Auch der professionelle Auftritt am Tag der Informatik zeigte: Technische Exzellenz allein reicht nicht – es kommt auf kreative Präsentation und Nutzerorientierung gleichermaßen an.
 
@@ -690,7 +698,7 @@ Die folgende Übersicht zeigt die jeweiligen Verantwortungsbereiche der einzelne
 
 \begin{itemize}
     \item Erstellung der Persona Elias Lev inklusive Steckbrief und Charakter
-    \item Prompt-Erstellung und technische Umsetzung der Bildgenerierung (sowohl händisch als auch per API: \texttt{fooocus\_image\_generation\_scripts}) 
+    \item Prompt-Erstellung und technische Umsetzung der Bildgenerierung (sowohl händisch als auch per API: \texttt{fooocus\_image\_generation\_scripts})
     \item Aufbau einer eigenen Infrastruktur (Organisation und Verwaltung einer Hochschul-VM)
     \item Dokumentation: Deckblatt, Einleitung, KI Influencer Persona, Automatisierung (Bildgenerierung)
 \end{itemize}
