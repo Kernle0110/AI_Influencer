@@ -111,7 +111,7 @@ Unzulässig sind dagegen:
 \end{itemize}
 
 Darüber hinaus gelten die Vorgaben der DSGVO: Vor der Verarbeitung personenbezogener Daten (z.\,B. bei Chatbots oder Analytics) ist eine informierte Einwilligung erforderlich. Nutzer:innen müssen über Art, Umfang und Zweck der Datenverarbeitung aufgeklärt werden. Außerdem müssen Daten sicher gespeichert, auf Wunsch gelöscht und vor unbefugtem Zugriff geschützt werden.
-
+\clearpage
 \subsubsection*{Zusammenfassung}
 
 Für unser Projekt bedeutet das konkret:
@@ -185,7 +185,7 @@ Für den Projektzeitraum wurde Instagram als Hauptplattform ausgewählt – unte
 \subsection{Toolrecherche}
 
 Um die Anforderungen unseres Projekts – insbesondere die vollautomatisierte Generierung realistischer Inhalte für eine digitale Influencer-Persona – bestmöglich umzusetzen, haben wir verschiedene Softwarelösungen recherchiert und bewertet. Dabei lag der Fokus auf Tools, die sich zuverlässig automatisieren lassen, kostenfrei oder zumindest günstig nutzbar sind und konsistente Ergebnisse liefern – sowohl im Bild-, Video- als auch im Textbereich.
-
+\clearpage
 \textbf{Unsere Hauptkriterien bei der Toolauswahl:}
 \begin{itemize}
     \item Realistische Bildqualität
@@ -295,7 +295,7 @@ Die Meta Graph API ermöglichte es, den gesamten Veröffentlichungsprozess volls
 
 Im Rahmen unseres KI-Influencer-Projekts fiel die Entscheidung bewusst auf die Konzeption eines digitalen Mentors, der sich durch Tiefe, Klarheit und eine inspirierende Ausstrahlung von der Masse abheben soll. Während viele virtuelle Influencer stark auf Ästhetik oder Mode fokussiert sind, war es unser Ziel, eine Figur mit inhaltlicher Tiefe und echtem Mehrwert zu schaffen – einen Charakter, der wie ein mentaler Coach oder Berater in digitalen Zeiten agiert.
 
-\subsection*{Elias Lev – Der digitale Mentor}
+\subsubsection*{Elias Lev – Der digitale Mentor}
 
 So entstand \textbf{Elias Lev}, ein KI-generierter Influencer im Alter von 31 Jahren. Sein Auftreten ist geprägt von einem \textit{urban-clean Look}, einer ruhigen, leicht stoischen Ausstrahlung und einer tech-affinen Note. Seine Sprache ist klar, direkt und inspirierend – ohne in Motivationsfloskeln zu verfallen. Elias soll vor allem Menschen zwischen \textbf{20 und 35 Jahren} ansprechen, die sich für \textit{Selbstoptimierung, mentale Klarheit, emotionale Intelligenz und die Zukunft von KI im Alltag} interessieren.
 
@@ -308,7 +308,7 @@ Die Inhalte, die Elias teilt, orientieren sich an etablierten Social-Media-Forma
 \end{itemize}
 
 Sein Erscheinungsbild ist bewusst \textit{strukturiert und leicht distanziert}, um den Eindruck eines Thought-Leaders zu unterstützen – jemand, der weniger „Freund“, sondern vielmehr ein ruhiger Gegenpol zum hektischen Informationsrauschen digitaler Plattformen ist.
-
+\clearpage
 Um Elias visuell zu erschaffen, haben wir mithilfe von \textbf{Fooocus} ein erstes Bild generiert. Dabei nutzten wir gezielt einen Prompt, der sowohl die optischen Merkmale als auch die Atmosphäre seiner Rolle widerspiegelt:
 
 \begin{quote}
@@ -317,7 +317,7 @@ Um Elias visuell zu erschaffen, haben wir mithilfe von \textbf{Fooocus} ein erst
 
 Dieses Bild diente als Grundlage für die erste visuelle Iteration von Elias und spiegelt seine Funktion als \textbf{zukünftiger Mentor in einer KI-geprägten Welt} wider.
 
-\subsection*{Maya Elenor – Die reflektierende Mentorin}
+\subsubsection*{Maya Elenor – Die reflektierende Mentorin}
 
 Parallel zu Elias entwickelten wir eine weibliche Alternative: \textbf{Maya Elenor}, 29 Jahre alt. Ihr Stil vereint minimalistisches Design mit einem modernen Boho-Touch und einer spirituell angehauchten Ästhetik. Maya strahlt durch ihre warme, empathische und leicht philosophische Tonalität eine einladende Ruhe aus.
 
@@ -331,7 +331,7 @@ Typische Inhalte ihrer Persona umfassen:
     \item Zitate in Kombination mit geführten Reflexionsfragen
     \item Community-Engagement durch Fragen wie: „Was war deine größte Lektion in der letzten Woche?“
 \end{itemize}
-
+\clearpage
 Maya nutzt eine ruhige Stimme und bietet „Mini-Coachings“ über DMs, ergänzt durch ein stimmiges visuelles Branding mit sanften Farben und Lichtverhältnissen.
 
 Auch ihre visuelle Identität wurde über einen gezielten Prompt mit Fooocus generiert:
@@ -432,7 +432,7 @@ Das Skript übernimmt mehrere Schritte in fest definierter Reihenfolge:
     \item \textbf{Gestaltung des Bildes:} Das Zitat wird typografisch auf dem Bild platziert, inklusive halbtransparenter Textbox zur besseren Lesbarkeit. Die Textzeilen werden dabei automatisch umgebrochen, zentriert und optisch ansprechend dargestellt. Die fertige Version wird als \texttt{bild\_caption.jpg} gespeichert.
 
     \item \textbf{Git-Commit für RAW-URL:} Da die Instagram Graph API eine öffentliche URL für das Bild benötigt, wird das neue Bild automatisch in das GitHub-Repository gepusht, um über \texttt{raw.githubusercontent.com} verfügbar zu sein.
-
+\clearpage
     \item \textbf{Erzeugung der Caption:} Die Caption besteht aus dem Zitat selbst sowie einer Hashtag-Zeile. Die verwendeten Schlagwörter werden zu Hashtags umgewandelt und mit einem vordefinierten Hashtag-Block ergänzt.
 
     \item \textbf{Posten via Meta Graph API:} Die Bild-URL und Caption werden an die Meta-API übermittelt. Der Upload erfolgt in zwei Schritten:
@@ -458,7 +458,7 @@ Der Zugriff auf Instagram erfolgt über die offizielle Meta Graph API unter Verw
 \end{itemize}
 
 Das System bildet damit einen robusten, erweiterbaren und wartungsarmen Workflow, um Content automatisiert auf Instagram zu veröffentlichen.
-
+\clearpage
 \subsection{Geplante Ausführungen – Daily und Weekly Postings}
 
 Neben der technischen Umsetzung einzelner Skripte war auch die zeitlich gesteuerte Ausführung ein wichtiger Bestandteil der Projektstruktur. Ziel war es, bestimmte Aktionen regelmäßig auszulösen – entweder täglich oder wöchentlich – ohne manuelle Eingriffe. Dazu wurden zwei zentrale Steuerungsskripte implementiert: \texttt{daily\_run.py} und \texttt{weekly\_run.py}.
@@ -480,7 +480,7 @@ Die Ausführung erfolgt lokal oder serverseitig über GitHub Actions, abhängig 
 Während der tägliche Lauf Posting und Community-Management abdeckt, dient \texttt{weekly\_run.py} der vorbereitenden Content-Erstellung. Hier wird der Ollama-Server zunächst geprüft und – falls nicht aktiv – automatisch gestartet. Danach wird ein LLM-Modell (z.\,B. LLaMA~3) geladen und mehrfach \texttt{generate\_content.py} aufgerufen, um eine Serie neuer Zitate samt Schlagwörtern zu erzeugen.
 
 Die generierten Inhalte werden in der Datei \texttt{zitate.csv} fortlaufend gespeichert und stehen anschließend für die nächsten Tage im automatisierten Post-Workflow zur Verfügung.
-
+\clearpage
 \subsubsection*{Zusammenspiel beider Skripte}
 
 \texttt{weekly\_run.py} erzeugt die inhaltliche Basis für \texttt{daily\_run.py}. Gemeinsam bilden sie ein modulares, gut wartbares Automatisierungssystem. Die getrennte Struktur erlaubt eine flexible Zeitplanung (z.\,B. tägliche Posts, aber nur wöchentliche Content-Erzeugung) und reduziert Redundanz im Ablauf.
@@ -554,7 +554,7 @@ Weitere Einschränkungen:
 \subsubsection*{Follower-Herkunft (Country Breakdown)}
 
 Das Skript fragt über die Metrik \texttt{follower\_demographics} mit \texttt{breakdown=country} den Ländercode und die Anzahl der Follower ab. Daraus entsteht ein DataFrame mit Ländern und Follower-Zahlen, sortiert nach Reichweite. Die Top 10 werden grafisch dargestellt (z.\,B. mittels \texttt{seaborn.barplot}).
-
+\clearpage
 \subsubsection*{Aktive Zeiten der Follower}
 
 Die Metrik \texttt{online\_followers} zeigt, zu welcher Stunde des Tages die Follower am aktivsten sind. Die Daten basieren auf Lifetime-Werten und werden als stündlich aggregierte Balkengrafik ausgegeben. Auch hier gilt eine Follower-Mindestanzahl als Voraussetzung für die API-Rückgabe.
@@ -653,10 +653,10 @@ Der Zugang zur offiziellen Instagram Graph API erfordert eine Vielzahl von Schri
     \item Verknüpfung des Instagram-Kontos mit der Facebook-Seite
     \item Registrierung einer \textbf{Meta App} im Meta for Developers Portal
     \item Konfiguration der App: Hinzufügen des Produkts \texttt{Instagram Graph API}
-    \item Verknüpfung der App mit dem verknüpften Instagram-Konto (via Facebook-Seite)
+    \item Verknüpfung der App mit dem Instagram-Konto (via Facebook-Seite)
     \item Durchführung der \textbf{Business-Verifizierung} (z.\,B. Upload von offiziellen Dokumenten)
     \item Beantragung notwendiger Berechtigungen (\texttt{instagram\_basic}, \texttt{instagram\_graph\_user\_media}, etc.)
-    \item Durchführung eines \textbf{App Reviews} inkl. Screencast und Nutzungserklärung
+    \item Durchführung eines \textbf{App Reviews} mit Screencast und Nutzungserklärung
     \item Erzeugung eines temporären Zugriffstokens (User Token)
     \item Umwandlung des Tokens in ein \textbf{Langzeittoken} mit \texttt{offline\_access}-Rechten
     \item Speicherung der Zugangsdaten in einem sicheren Secret-Store (z.\,B. GitHub Secrets)
@@ -673,7 +673,7 @@ Der Zugang zur offiziellen Instagram Graph API erfordert eine Vielzahl von Schri
     \item \textbf{Komplexe Rechteverwaltung:} Es war nicht immer transparent, welche Berechtigung zu welchem Funktionsaufruf erforderlich ist. Insbesondere die Unterscheidung zwischen Seiten-Token, Nutzer-Token und App-Token war anfangs verwirrend.
 \end{itemize}
 
-Diese Erfahrungen zeigen, dass der Zugang zur offiziellen API zwar möglich ist – jedoch mit einem erheblichen technischen und organisatorischen Aufwand verbunden ist, insbesondere wenn keine formale Firmenstruktur vorliegt.
+Diese Erfahrungen zeigen, dass der Zugang zur offiziellen API zwar grundsätzlich möglich ist – jedoch mit erheblichem technischen und organisatorischem Aufwand verbunden ist, insbesondere wenn keine formale Firmenstruktur vorliegt.
 
 
 \subsection{Videogenerierung}
@@ -691,7 +691,7 @@ Ein zentrales Element des Projekts war die automatisierte Bildgenerierung, die j
 
 \subsubsection*{Fooocus: Technische Limitierungen und API-Komplexität}
 
-Obwohl Fooocus eine benutzerfreundliche Oberfläche für die manuelle Bildgenerierung bietet, gestaltete sich die Nutzung der API für automatisierte Prozesse als unerwartet komplex. Besonders herausfordernd war die fehlende Dokumentation für die API-Endpunkte, insbesondere \texttt{/v2/generation/image-prompt}. Zwar war die grafische Oberfläche intuitiv gestaltet, doch enthielt sie kaum Hinweise darauf, wie JSON-Payloads korrekt zu strukturieren sind.
+Obwohl Fooocus eine benutzerfreundliche Oberfläche für die manuelle Bildgenerierung bietet, gestaltete sich die Nutzung der API für automatisierte Prozesse als unerwartet komplex. Besonders herausfordernd war die fehlende Dokumentation für die API-Endpunkte, insbesondere \texttt{/v2/generation/image-prompt}. Zwar war die GUI intuitiv gestaltet, enthielt jedoch kaum Hinweise darauf, wie JSON-Payloads korrekt zu strukturieren sind.
 
 Ein wiederkehrendes Problem war das Auftreten von \textbf{Validierungsfehlern} beim API-Request. Diese resultierten meist aus unklar definierten Feldern im Zusammenhang mit der Nutzung von \texttt{FaceSwap} – einer essenziellen Funktion im Projekt zur Sicherstellung der visuellen Konsistenz der digitalen Persona. Erst durch wiederholtes Trial-and-Error und die manuelle Analyse von Netzwerkverkehr der Weboberfläche konnte ein funktionierendes JSON-Format für diesen spezifischen Anwendungsfall entwickelt werden.
 
